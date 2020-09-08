@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  username: postgres
+  password: 
+  pool: 5
+
+production:
+  <<: *default
+  database: Proyecto_production
+
+development:
+  <<: *default
+  database: Proyecto_development
+
+test:
+  <<: *default
+  database: Proyecto_test
