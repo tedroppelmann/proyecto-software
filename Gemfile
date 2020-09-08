@@ -41,7 +41,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Le agregué la gema rspec para el testing
   gem 'rspec-rails'
-  # Le agregué rubocop aquí. No se si esta bien
+  # Le agregué rubocop aquí. No se si esta bien AAAA
   gem 'rubocop', require: false
 end
 
