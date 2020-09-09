@@ -1,9 +1,10 @@
+<<<<<<< HEAD
 default: &default
   adapter: postgresql
   encoding: unicode
   host: localhost
   username: postgres
-  password:
+  password: grupo44
   pool: 5
 
 production:
@@ -16,4 +17,24 @@ development:
 
 test:
   <<: *default
+=======
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  username: postgres
+  password: grupo44
+  pool: 5
+
+production:
+  <<: *default
+  database: Proyecto_production
+
+development:
+  <<: *default
+  database: Proyecto_development
+
+test:
+  <<: *default
+>>>>>>> 883a770a9f8ad8423e51678a69aedf0b08859577
   database: Proyecto_test
