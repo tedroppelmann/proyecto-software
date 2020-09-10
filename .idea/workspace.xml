@@ -24,7 +24,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="968716af-5165-4eff-ba50-138b72f2ed25" name="Default Changelist" comment="" />
+    <list default="true" id="968716af-5165-4eff-ba50-138b72f2ed25" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/config/environments/production.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/production.rb" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -91,6 +93,14 @@
     <option name="LAST_COMMIT_MESSAGE" value="cambio heroku" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="144" y="100" key="MergeDialog" timestamp="1599775044968">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="144" y="100" key="MergeDialog/0.23.1440.877@0.23.1440.877" timestamp="1599775044968" />
+    <state x="358" y="230" key="MultipleFileMergeDialog" timestamp="1599775045001">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="358" y="230" key="MultipleFileMergeDialog/0.23.1440.877@0.23.1440.877" timestamp="1599775045001" />
     <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1599694219294">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
