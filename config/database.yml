@@ -3,17 +3,17 @@ default: &default
   encoding: unicode
   host: localhost
   username: postgres
-  password: 
+  password:
   pool: 5
 
 production:
   <<: *default
-  database: <nombre de tu app>_production
+  database: grupo44_production
 
 development:
   <<: *default
-  database: <nombre de tu app>_development
+  database: grupo44_development
 
 test:
   <<: *default
-  database: <nombre de tu app>_test
+  database: grupo44_test
