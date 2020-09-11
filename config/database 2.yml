@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  username: postgres
+  password:
+  pool: 5
+
+production:
+  <<: *default
+  database: grupo44_production
+
+development:
+  <<: *default
+  database: grupo44_development
+
+test:
+  <<: *default
+  database: grupo44_test
