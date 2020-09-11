@@ -42,10 +42,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   # Le agregué rubocop aquí. No se si esta bien
-  gem 'rubocop'
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
+  gem 'rubocop', require: false
 end
 
 group :development do
