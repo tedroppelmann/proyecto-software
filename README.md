@@ -1,6 +1,6 @@
 # DDCarrete 🎉🎊
 
-Información relveante hasta el momento:
+Información relevante hasta el momento:
 
 * Grupo: 44
 
