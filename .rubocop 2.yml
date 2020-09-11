@@ -1,9 +1,0 @@
-AllCops:
-  Includes:
-    - Rakefile
-    - config.ru
-  Excludes:
-    - db/
-    - config/
-    - script/
-    - vendor//* # Circle adds the rubies here
