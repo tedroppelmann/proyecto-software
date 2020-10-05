@@ -1,8 +1,7 @@
-
-<body>
-<h1> Hola MundOOOOOO!</h1>
-<p>
-  <%= image_tag("meme.png") %>
-</p>
-
-</body>
+<% if current_user %>
+  <p> Hola, <%= current_user.first_name %> </p>
+  <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %>
+<% else %> 
+  <p> No estas conectado </p> 
+  <%= link_to 'Registrarse', new_user_registration_path %> 
+<% end %>
