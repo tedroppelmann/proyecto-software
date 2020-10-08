@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  #get 'parties/index'
+  #get 'parties/new'
+  #get 'parties/show'
+  #get 'parties/edit'
   #get 'comunas/index'
   #get 'comunas/show'
   #get 'comunas/edit'
@@ -11,12 +15,27 @@ Rails.application.routes.draw do
   get "comunas/index", to: "comunas#index"
   get "comunas/:id", to: "comunas#show", as: "comuna"
 
-  #UPDATE
+  #UPDATE COMUNA
   get "comunas/:id/edit", to: "comunas#edit", as: "comuna_edit"
   patch "comunas/:id", to: "comunas#update", as: "comuna_update"
 
-  #DELET
+  #DELETE COMUNA
   delete "comunas/:id", to: "comunas#delete"
+
+  #CREATE PARTY
+  get "parties/new", to: "parties#new"
+  post "parties", to: "parties#create"
+
+  #READ PARTY
+  get "parties/index", to: "parties#index"
+  get "parties/:id", to: "parties#show", as: "party"
+
+  #UPDATE PARTY
+  get "parties/:id/edit", to: "parties#edit", as: "party_edit"
+  patch "parties/:id", to: "parties#update", as: "party_update"
+
+  #DELETE PARTY 
+  delete "parties/:id", to: "parties#delete"
 
   devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations'}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
