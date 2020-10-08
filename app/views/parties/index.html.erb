@@ -1,0 +1,28 @@
+<h1>Mis Parties </h1>
+<table>
+    <thread>
+        <tr>
+            <th>Titulo</th>
+            <th>Descripcion</th>
+            <th>Direccion</th>
+            <th>Capacidad</th>
+            <th>Costo</th>
+        </tr>
+    </thread>
+
+    <tbody>
+        <% @parties.each do |party| %>
+            <tr>
+                <td><%= party.titulo %></td>
+                <td><%= party.descripcion %></td>
+                <td><%= party.direccion %></td>
+                <td><%= party.capacidad %></td>
+                <td><%= party.costo %></td>
+                <td><%= link_to "Ver detalle", party_path(party.id)%></td> 
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<%= link_to "volver a agregar party", parties_new_path%><br>
+<%= link_to "volver al inicio", static_pages_home_path%>

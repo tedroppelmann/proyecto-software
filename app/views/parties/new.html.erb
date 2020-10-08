@@ -1,0 +1,37 @@
+<h1>Nueva party</h1>
+
+<p> <%= notice %> </p>
+
+<%= form_with(model: @party, method: :post) do |form| %>
+    <div class="field"> 
+        <%=form.label :titulo%>
+        <%=form.text_field :titulo%>
+    </div>
+    <br>
+    <div class="field"> 
+        <%=form.label :descripcion%>
+        <%=form.text_field :descripcion%>
+    </div>
+    <br>
+    <div class="field"> 
+    <%=form.label :direccion%>
+    <%=form.text_field :direccion%>
+    </div>
+    <br>
+    <div class="field"> 
+        <%=form.label :capacidad%>
+        <%=form.text_field :capacidad%>
+    </div>
+    <br>
+    <div class="field"> 
+        <%=form.label :costo%>
+        <%=form.text_field :costo%>
+    </div>
+    <div class="action"> 
+        <%=form.submit%>
+    </div>
+<% end %>
+
+<%= link_to "ver listado de parties", parties_index_path%>
+<br>
+<%= link_to "volver al inicio", static_pages_home_path%>
