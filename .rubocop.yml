@@ -1,14 +1,36 @@
-
+require: 
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
 
 AllCops:
-  Includes:
-    - Rakefile
-    - config.ru
+  Include:
+    - foo.unusual_extension
     - '**/*.rb'
-  Excludes:
-    - db/
-    - config/
-    - script/
-    - vendor//*
-    - bin/* # Circle adds the rubies here
-    - db/schema.rb
+    - '**/*.gemfile'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.ru'
+    - '**/Gemfile'
+    - '**/Rakefile'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/**/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+    - spec/**/*
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/**/*
+
+Style/Documentation:
+  Enabled: false
