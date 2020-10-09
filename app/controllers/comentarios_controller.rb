@@ -19,10 +19,10 @@ class ComentariosController < ApplicationController
     @comentario = Comentario.create(@comentarios_params)
 
     if @comentario.save
-      redirect_to comentarios_new_path, notice: "agregaste un comentario"
+      redirect_to comentarios_new_path, :notice => "agregaste un comentario"
        #esto sirve en vez de poner el path /comunas/new, pasaber usamos rails routes
     else
-      redirect_to comentarios_new_path, notice: "error al agregar un comentario"
+      redirect_to comentarios_new_path, :notice => "error al agregar un comentario"
     end
   end
 
@@ -38,9 +38,9 @@ class ComentariosController < ApplicationController
     @comentarios_param = params.require(:comentario).permit(:contenido, :fecha)
 
     if @comentario.update(@comentarios_param)
-      redirect_to comentario_path(@comentario.id), notice: "Comentario editada con exito"
+      redirect_to comentario_path(@comentario.id), :notice => "Comentario editada con exito"
     else
-      redirect_to comentario_path(@comentario.id), notice: "Error al editar comentario rey"
+      redirect_to comentario_path(@comentario.id), :notice => "Error al editar comentario rey"
     end 
   end
   def delete

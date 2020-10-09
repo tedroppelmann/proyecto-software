@@ -11,9 +11,9 @@ class ServicesController < ApplicationController
     @service = Service.create(@services_param)
 
     if @service.save
-      redirect_to services_new_path, notice: "Wow creaste tu service"
+      redirect_to services_new_path, :notice => "Wow creaste tu service"
     else 
-      redirect_to services_new_path, notice: "Error al crear tu service"
+      redirect_to services_new_path, :notice => "Error al crear tu service"
     end 
   end
   def show
@@ -29,9 +29,9 @@ class ServicesController < ApplicationController
     @services_param = params.require(:party).permit(:nombre, :descripcion, :cap_max, :precio)
 
     if @service.update(@services_param)
-      redirect_to service_path(@service.id), notice: "Service editada con exito"
+      redirect_to service_path(@service.id), :notice => "Service editada con exito"
     else
-      redirect_to service_path(@service.id), notice: "Error al editar servicio rey"
+      redirect_to service_path(@service.id), :notice => "Error al editar servicio rey"
     end 
   end
   def delete

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Comuna, type: :model do
+RSpec.describe Comuna, :type => :model do
   it "should create correctly" do
     comuna = Comuna.new(:nombre => "San Joaquin")
     expect(comuna).to be_valid

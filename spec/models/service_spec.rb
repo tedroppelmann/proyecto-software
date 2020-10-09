@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Service, type: :model do
+RSpec.describe Service, :type => :model do
   it "should create correctly" do
     service = Service.new(:nombre => "los limpia pisos",:descripcion => "te voy a limpiar el piso al final del carrete", :cap_max => 3, :precio => 500)
     expect(service).to be_valid

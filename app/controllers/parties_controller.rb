@@ -12,9 +12,9 @@ class PartiesController < ApplicationController
     @party = Party.create(@parties_param)
 
     if @party.save
-      redirect_to parties_new_path, notice: "Wow creaste tu party"
+      redirect_to parties_new_path, :notice => "Wow creaste tu party"
     else 
-      redirect_to parties_new_path, notice: "Error al crear tu party"
+      redirect_to parties_new_path, :notice => "Error al crear tu party"
     end 
   end
 
@@ -31,9 +31,9 @@ class PartiesController < ApplicationController
     @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo)
 
     if @party.update(@parties_param)
-      redirect_to party_path(@party.id), notice: "Party editada con exito"
+      redirect_to party_path(@party.id), :notice => "Party editada con exito"
     else
-      redirect_to party_path(@party.id), notice: "Error al editar party rey"
+      redirect_to party_path(@party.id), :notice => "Error al editar party rey"
     end 
   end
   def delete

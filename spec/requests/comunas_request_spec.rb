@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Comunas", type: :request do
+RSpec.describe "Comunas", :type => :request do
 
   let(:comuna) do
     comuna = Comuna.new(:nombre => "San Joaquin")

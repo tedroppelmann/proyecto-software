@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Parties", type: :request do
+RSpec.describe "Parties", :type => :request do
 
   describe "GET /index" do
     it "returns http success" do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Comentarios", type: :request do
+RSpec.describe "Comentarios", :type => :request do
 
   describe "GET /index" do
     it "returns http success" do

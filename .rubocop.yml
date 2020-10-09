@@ -4,8 +4,10 @@ AllCops:
   Includes:
     - Rakefile
     - config.ru
+    - '**/*.rb'
   Excludes:
     - db/
     - config/
     - script/
-    - vendor//* # Circle adds the rubies here
+    - vendor//*
+    - bin/* # Circle adds the rubies here
