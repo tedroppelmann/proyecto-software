@@ -1,7 +1,16 @@
+<h2>Inicio</h2>
 
-<body>
-<h1> Hola MundOOOOOO!</h1>
-<p>
-  <%= image_tag("meme.png") %>
-</p>
-</body>
+<% if current_user %>
+  <p> Hola, <%= current_user.first_name %>  <%= current_user.last_name %> </p>
+  <p> <%= link_to "Ver listado de comunas", comunas_index_path%> </p>
+  <p> <%= link_to "Ver listado de parties", parties_index_path%> </p>
+  <p> <%= link_to "Editar cuenta", edit_user_registration_path%> </p>
+  <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %>
+
+<% else %> 
+  <p> No estas conectado </p> 
+  <p> <%= link_to 'Registrarse', new_user_registration_path %> </p>
+  <p> <%= link_to 'Iniciar sesión', new_user_session_path %> </p>
+<% end %>
+
+

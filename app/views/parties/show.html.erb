@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+    <strong>Titulo:</strong>
+    <%= @party.titulo %>
+</p>
+
+<p>
+    <strong>Descripcion:</strong>
+    <%= @party.descripcion %>
+</p>
+
+<p>
+    <strong>Direccion:</strong>
+    <%= @party.direccion %>
+</p>
+
+<p>
+    <strong>Capacidad:</strong>
+    <%= @party.capacidad %>
+</p>
+
+<p>
+    <strong>Costo:</strong>
+    <%= @party.costo %>
+</p>
+
+<%= link_to "Volver al listado", parties_index_path%><br>
+<%= link_to "Editar party", party_edit_path%><br>
+<%= link_to "Eliminar party", party_path, method: :delete%><br>
