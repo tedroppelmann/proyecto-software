@@ -1,0 +1,21 @@
+<h1>Editar comentario</h1>
+
+<p> <%= notice %> </p>
+
+<%= form_with(model: @comentario, method: :patch) do |form| %>
+    <div class="field"> 
+        <%=form.label :contenido%>
+        <%=form.text_field :contenido%>
+    </div>
+    <br>
+    <div class="field"> 
+        <%=form.label :fecha%>
+        <%=form.text_field :fecha%>
+    </div>
+    <br>
+    <div class="action"> 
+        <%=form.submit%>
+    </div>
+<% end %>
+<br>
+<%= link_to "ver listado de comentario", comentarios_index_path%>

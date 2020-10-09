@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+    <strong>Contenido comentario:</strong>
+    <%= @comentario.contenido%>
+</p>
+<p>
+    <strong>Fecha comentario:</strong>
+    <%= @comentario.fecha%>
+</p>
+<%= link_to "ver listado de comentario", comentarios_index_path%>
+<br>
+<%= link_to "Editar comentario", comentario_edit_path%>
+<br>
+<%= link_to "Eliminar comentario", comentario_path, method: :delete%>
