@@ -3,34 +3,83 @@ require:
   - rubocop-rails
   - rubocop-rspec
 
+#Archivos ignorados por rubocop
 AllCops:
-  Include:
-    - foo.unusual_extension
-    - '**/*.rb'
-    - '**/*.gemfile'
-    - '**/*.gemspec'
-    - '**/*.rake'
-    - '**/*.ru'
-    - '**/Gemfile'
-    - '**/Rakefile'
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
-    - 'bin/**/*'
-    - !ruby/regexp /old_and_unused\.rb$/
+    - 'bin/*'
+    - 'Gemfile'
+    - 'Gemfile.lock'
+    - 'app/assets/*'
+    - 'app/views/*'
+    - 'app/channels/*'
+    - 'app/helpers/*'
+    - 'app/controllers/application_controller.rb'
+    - 'app/jobs/application_job.rb'
+    - 'app/mailers/application_mailer.rb'
+  Include:
+    - 'app/controllers/*'
+    - 'app/controllers/concerns/*'
+    - 'app/controllers/users/*'
+    - 'app/jobs/*'
+    - 'app/models/concerns/*'
+    - 'app/models/*'
+    - 'app/mailers/*'
 
-Metrics/LineLength:
-  Max: 100
+#Reglas activadas
+Style/StringLiterals:
+  Enabled: true
 
-Metrics/BlockLength:
-  Exclude:
-    - config/**/*
-    - spec/**/*
-
-Lint/AmbiguousBlockAssociation:
-  Exclude:
-    - spec/**/*
+Layout/LineLength:
+  Enabled: true
+  Max: 150
 
 Style/Documentation:
+  Enabled: true
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+  EnforcedStyle: compact
+
+Style/CommentedKeyword:
+  Enabled: true
+
+Style/EmptyLiteral:
+  StyleGuide: '#literal-array-hash'
+  Enabled: true
+
+Style/Encoding:
+  StyleGuide: '#utf-8'
+  Enabled: true
+
+Layout/CaseIndentation:
+  StyleGuide: '#indent-when-to-case'
+  Enabled: true
+
+Layout/CommentIndentation:
+  Enabled: true
+
+Layout/EmptyLines:
+  StyleGuide: '#two-or-more-empty-lines'
+  Enabled: true
+
+#Otros
+Lint/RaiseException:
+  Enabled: false
+
+Lint/StructNewOverride:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: false
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
+  Enabled: false
+
+Naming/VariableName:
   Enabled: false

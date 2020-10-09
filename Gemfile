@@ -41,7 +41,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rails-controller-testing'
   gem 'rspec-rails'
-  # Le agregué rubocop aquí. No se si esta bien
+  # Le agregue rubocop aqui. No se si esta bien
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'

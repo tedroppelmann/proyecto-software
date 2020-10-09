@@ -13,7 +13,7 @@ require 'rails_helper'
 #   end
 # end
 #
-# SE LE QUITA ESTA LÍNEA PARA QUE NO MOLESTE EN EL TESTING
+# SE LE QUITA ESTA LINEA PARA QUE NO MOLESTE EN EL TESTING
 # RSpec.describe StaticPagesHelper, type: :helper do
 #  pending "add some examples to (or delete) #{__FILE__}"
 # end
