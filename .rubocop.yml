@@ -11,3 +11,4 @@ AllCops:
     - script/
     - vendor//*
     - bin/* # Circle adds the rubies here
+    - db/schema.rb
