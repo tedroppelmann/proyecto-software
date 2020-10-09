@@ -20,20 +20,20 @@ RSpec.describe "Comunas", type: :request do
     end
   end
 
-  describe "GET /show" do
+  #describe "GET /show" do
     #it "returns http success" do
     #  comuna = Comuna.find(params[:id])
     #  get "/comunas/show"
     #  expect(response).to have_http_status(:success)
     #end
-  end
+  #end
 
-  describe "GET /edit" do
+  #describe "GET /edit" do
     #it "returns http success" do
     #  comuna = Comuna.find(params[:id])
     #  get "/comunas/edit"
     #  expect(response).to have_http_status(:success)
     #end
-  end
+  #end
 
 end

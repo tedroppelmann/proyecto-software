@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'comentarios/index'
+  get 'comentarios/new'
+  get 'comentarios/show'
+  get 'comentarios/edit'
   get 'services/index'
   get 'services/new'
   get 'services/show'
@@ -53,6 +57,17 @@ Rails.application.routes.draw do
   #DELETE SERVICE
   delete "services/:id", to: "services#delete"
 
+  #CREATE COMMENT
+  get "comentarios/new", to: "comentarios#new"
+  post "comentarios", to: "comentarios#create"
+  #READ COMMENNT
+  get "comentarios/index", to: "comentarios#index"
+  get "comentarios/:id", to: "comentarios#show", as: "comentario"
+  #UPDATE COMMENT
+  get "comentarios/:id/edit", to: "comentarios#edit", as: "comentario_edit"
+  patch "comentarios/:id", to: "comentarios#update", as: "comentario_update"
+  #DELETE COMMENT
+  delete "comentarios/:id", to: "comentarios#delete"
   devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations'}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "static_pages/home", to: "static_pages#home"
