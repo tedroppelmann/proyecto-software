@@ -30,3 +30,5 @@
 .DS_Store
 
 public/coverage
+
+.rubocop_todo.yml
