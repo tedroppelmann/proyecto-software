@@ -1,0 +1,20 @@
+<h1>Nuevo Comentario</h1>
+
+<p><%= notice %></p>
+
+<%= form_with(model: @comentario, method: :post) do |form|%>
+    <div class="field">
+        <%=form.label :contenido%>
+        <%=form.text_field :contenido%>
+    </div>
+    <div class="field">
+        <%=form.label :fecha%>
+        <%=form.text_field :fecha%>
+    </div>
+    <div class="action">
+        <%=form.submit%>
+    </div>
+
+<% end %>
+
+<%= link_to "ver listado de comentarios", comentarios_index_path%>
