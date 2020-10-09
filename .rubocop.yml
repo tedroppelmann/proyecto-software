@@ -83,3 +83,6 @@ Style/HashTransformValues:
 
 Naming/VariableName:
   Enabled: false
+
+Documentation:
+    Enabled: false
