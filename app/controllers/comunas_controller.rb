@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class ComunasController < ApplicationController
   def index
     @comunas = Comuna.all
   end
 
   def new
-    @comuna = Comuna.new()
+    @comuna = Comuna.new
   end
 
   def create
@@ -12,13 +14,12 @@ class ComunasController < ApplicationController
     @comuna = Comuna.create(@comunas_params)
 
     if @comuna.save
-      redirect_to comunas_new_path, :notice => "agregaste una comuna"
-       #esto sirve en vez de poner el path /comunas/new, pasaber usamos rails routes
+      redirect_to comunas_new_path, notice: 'agregaste una comuna'
+    # esto sirve en vez de poner el path /comunas/new, pasaber usamos rails routes
     else
-      redirect_to comunas_new_path, :notice => "error al agregar una comuna"
+      redirect_to comunas_new_path, notice: 'error al agregar una comuna'
     end
   end
-  
 
   def show
     @comuna = Comuna.find(params[:id])
@@ -33,12 +34,11 @@ class ComunasController < ApplicationController
     @comunas_params = params.require(:comuna).permit(:nombre)
 
     if @comuna.update(@comunas_params)
-      redirect_to comuna_path(@comuna.id), :notice => "comuna editada con exito"
+      redirect_to comuna_path(@comuna.id), notice: 'comuna editada con exito'
     else
-      redirect_to comuna_edit_path(@comuna.id), :notice => "error al editar la comuna"
+      redirect_to comuna_edit_path(@comuna.id), notice: 'error al editar la comuna'
     end
-
-  end 
+  end
 
   def delete
     @comuna = Comuna.find(params[:id])
