@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'services/index'
+  get 'services/new'
+  get 'services/show'
+  get 'services/edit'
   #get 'parties/index'
   #get 'parties/new'
   #get 'parties/show'
@@ -36,6 +40,18 @@ Rails.application.routes.draw do
 
   #DELETE PARTY 
   delete "parties/:id", to: "parties#delete"
+
+  #CREATE SERVICE
+  get "services/new", to: "services#new" #--> 'controlador#accion'
+  post "services", to: "services#create"
+  #READ SERVICE
+  get "services/index", to: "services#index"
+  get "services/:id", to: "services#show", as: "service"
+  #UPDATE SERVICE
+  get "services/:id/edit", to: "services#edit", as: "service_edit"
+  patch "services/:id", to: "services#update", as: "service_update"
+  #DELETE SERVICE
+  delete "services/:id", to: "services#delete"
 
   devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations'}
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

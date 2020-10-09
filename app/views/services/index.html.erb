@@ -1,0 +1,26 @@
+<h1>Mis Service </h1>
+<table>
+    <thread>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Cap Max</th>
+            <th>Precio</th>
+        </tr>
+    </thread>
+
+    <tbody>
+        <% @services.each do |service| %>
+            <tr>
+                <td><%= service.nombre %></td>
+                <td><%= service.descripcion %></td>
+                <td><%= service.cap_max %></td>
+                <td><%= service.precio %></td>
+                <td><%= link_to "Ver detalle", service_path(service.id)%></td> 
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<%= link_to "volver a agregar service", services_new_path%><br>
+<%= link_to "volver al inicio", static_pages_home_path%>

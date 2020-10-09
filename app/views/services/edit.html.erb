@@ -1,0 +1,31 @@
+<h1>Editar service</h1>
+
+<p> <%= notice %> </p>
+
+<%= form_with(model: @service, method: :patch) do |form| %>
+    <div class="field"> 
+        <%=form.label :nombre%>
+        <%=form.text_field :nombre%>
+    </div>
+    <br>
+    <div class="field"> 
+    <%=form.label :descripcion%>
+    <%=form.text_field :descripcion%>
+    </div>
+    <br>
+    <div class="field"> 
+        <%=form.label :cap_max%>
+        <%=form.text_field :cap_max%>
+    </div>
+    <br>
+    <div class="field"> 
+        <%=form.label :precio%>
+        <%=form.text_field :precio%>
+    </div>
+    <br>
+    <div class="action"> 
+        <%=form.submit%>
+    </div>
+<% end %>
+<br>
+<%= link_to "ver listado de services", servicies_index_path%>
