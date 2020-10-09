@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+    <strong>Nombre:</strong>
+    <%= @service.nombre %>
+</p>
+
+<p>
+    <strong>Descripcion:</strong>
+    <%= @service.descripcion %>
+</p>
+
+<p>
+    <strong>Capacidad:</strong>
+    <%= @service.cap_max %>
+</p>
+
+<p>
+    <strong>Costo:</strong>
+    <%= @service.precio %>
+</p>
+
+<%= link_to "Volver al listado", services_index_path%><br>
+<%= link_to "Editar service", service_edit_path%><br>
+<%= link_to "Eliminar service", service_path, method: :delete%><br>
