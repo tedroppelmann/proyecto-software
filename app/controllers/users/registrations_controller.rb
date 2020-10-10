@@ -12,9 +12,9 @@ module Users
     # end
 
     # POST /resource
-    # def create
-    #   super
-    # end
+    def create
+      super
+    end
 
     # GET /resource/edit
     # def edit
@@ -22,9 +22,9 @@ module Users
     # end
 
     # PUT /resource
-    # def update
-    #   super
-    # end
+    def update
+      super
+    end
 
     # DELETE /resource
     # def destroy
