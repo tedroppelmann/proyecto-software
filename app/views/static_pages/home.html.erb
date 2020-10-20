@@ -3,23 +3,19 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <div class="navbar-item">
-        <%= link_to "Inicio", static_pages_home_path %>
-      </div>
-      <div class="navbar-item">
-        <%= link_to "Fiestas", parties_index_path%>
-      </div>
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <%= link_to "Fiestas", parties_index_path, class:"navbar-item"%>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
           <% if not current_user %>
-          <button class="button is-link"> <%= link_to 'Registrarse', new_user_registration_path %> </button>
-          <button class="button is-link"> <%= link_to 'Iniciar sesión', new_user_session_path %> </button>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
           <% else %> 
-          <button class="button is-link"> <%= link_to "Editar cuenta", edit_user_registration_path%> </button>
-          <button class="button is-link"> <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %> </button>
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
           <% end %>
         </div>
       </div>
