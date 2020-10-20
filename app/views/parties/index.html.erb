@@ -1,10 +1,43 @@
-<h1>Mis Parties </h1>
-<table>
+<section class="hero is-success is-fullheight">
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item">
+        <%= link_to "Inicio", static_pages_home_path %>
+      </div>
+      <div class="navbar-item">
+        <%= link_to "Fiestas", parties_index_path%>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <button class="button is-link"> <%= link_to 'Registrarse', new_user_registration_path %> </button>
+          <button class="button is-link"> <%= link_to 'Iniciar sesión', new_user_session_path %> </button>
+          <% else %> 
+          <button class="button is-link"> <%= link_to "Editar cuenta", edit_user_registration_path%> </button>
+          <button class="button is-link"> <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %> </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="hero-body">
+<div class="container">
+
+
+<h1 class="title">
+Fiestas
+</h1>
+<table class="table">
     <thread>
         <tr>
-            <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>Direccion</th>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Dirección</th>
             <th>Capacidad</th>
             <th>Costo</th>
         </tr>
@@ -24,5 +57,9 @@
     </tbody>
 </table>
 
-<%= link_to "volver a agregar party", parties_new_path%><br>
+<%= link_to "Agregar fiesta", parties_new_path%><br>
 <%= link_to "volver al inicio", static_pages_home_path%>
+
+</div>
+</div>
+</section>

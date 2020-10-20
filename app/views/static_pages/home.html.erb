@@ -1,18 +1,51 @@
-<h2>Inicio</h2>
+
+<section class="hero is-success is-fullheight">
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item">
+        <%= link_to "Inicio", static_pages_home_path %>
+      </div>
+      <div class="navbar-item">
+        <%= link_to "Fiestas", parties_index_path%>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <button class="button is-link"> <%= link_to 'Registrarse', new_user_registration_path %> </button>
+          <button class="button is-link"> <%= link_to 'Iniciar sesión', new_user_session_path %> </button>
+          <% else %> 
+          <button class="button is-link"> <%= link_to "Editar cuenta", edit_user_registration_path%> </button>
+          <button class="button is-link"> <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %> </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="hero-body">
+<div class="container">
 
 <% if current_user %>
-  <p> Hola, <%= current_user.first_name %>  <%= current_user.last_name %> </p>
-  <p> <%= link_to "Ver listado de comunas", comunas_index_path%> </p>
-  <p> <%= link_to "Ver listado de parties", parties_index_path%> </p>
-  <p><%= link_to "ver listado de comentario", comentarios_index_path%></p>
-  <p><%=link_to "ver listado de servicios", services_index_path%></p>
-  <p> <%= link_to "Editar cuenta", edit_user_registration_path%> </p>
-  <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %>
+<h1 class="title">
+Inicio
+</h1>
+<p> Hola, <%= current_user.first_name %>  <%= current_user.last_name %> </p>
+<p> <%= link_to "Ver listado de comunas", comunas_index_path%> </p>
+<p> <%= link_to "Ver listado de parties", parties_index_path%> </p>
+<p><%= link_to "Ver listado de comentario", comentarios_index_path%></p>
+<p><%=link_to "Ver listado de servicios", services_index_path%></p>
 
 <% else %> 
-  <p> No estas conectado </p> 
-  <p> <%= link_to 'Registrarse', new_user_registration_path %> </p>
-  <p> <%= link_to 'Iniciar sesión', new_user_session_path %> </p>
+<h1 class="title">
+Bienvenido a DCCarrete
+</h1>
+
 <% end %>
 
-
+</div>
+</div>
+</section>
