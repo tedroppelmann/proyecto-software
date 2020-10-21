@@ -1,37 +1,89 @@
-<h1>Nueva party</h1>
 
-<p> <%= notice %> </p>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
 
-<%= form_with(model: @party, method: :post) do |form| %>
-    <div class="field"> 
-        <%=form.label :titulo%>
-        <%=form.text_field :titulo%>
+      <% if current_user %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
     </div>
-    <br>
-    <div class="field"> 
-        <%=form.label :descripcion%>
-        <%=form.text_field :descripcion%>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
     </div>
-    <br>
+  </div>
+</nav>
+
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+<div class="container">
+
+<div class="columns">
+  <div class="column">
+    
+  </div>
+<div class="column">
+<h1 class="title">
+Crear carrete
+</h1>
+
+<%= form_with(model: @party, method: :post, html: {class: 'box'}) do |form| %>
+
     <div class="field"> 
-    <%=form.label :direccion%>
-    <%=form.text_field :direccion%>
+        <%=form.label :titulo, "Título" %><br />
+        <%=form.text_field :titulo, required:true%>
     </div>
-    <br>
     <div class="field"> 
-        <%=form.label :capacidad%>
-        <%=form.text_field :capacidad%>
+        <%=form.label :descripcion, "Descripción" %><br />
+        <%=form.text_field :descripcion, required:true%>
     </div>
-    <br>
     <div class="field"> 
-        <%=form.label :costo%>
-        <%=form.text_field :costo%>
+    <%=form.label :direccion, "Dirección"%><br />
+    <%=form.text_field :direccion, required:true%>
     </div>
-    <div class="action"> 
-        <%=form.submit%>
+    <div class="field"> 
+        <%=form.label :capacidad, "Capacidad"%><br />
+        <%=form.text_field :capacidad, required:true%>
+    </div>
+    <div class="field"> 
+        <%=form.label :costo, "Costo"%><br />
+        <%=form.text_field :costo, required:true%>
+    </div>
+    <div class="actions"> 
+        <%=form.submit "Crear carrete", class:"button is-link" %>
     </div>
 <% end %>
 
-<%= link_to "ver listado de parties", parties_index_path%>
-<br>
-<%= link_to "volver al inicio", static_pages_home_path%>
+</div>
+
+<div class="column">
+    
+</div>
