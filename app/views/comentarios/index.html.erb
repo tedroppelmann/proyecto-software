@@ -12,7 +12,7 @@
         <% @comentarios.each do |comentario| %>
             <tr>
                 <td><%= comentario.contenido %></td>
-                <td><%= comentario.fecha %></td>
+                <td><%= comentario.created_at.strftime("%d-%m-%Y")%></td>
                 <td><%= link_to "ver detalle", comentario_path(comentario.id)%></td>
             </tr>
             
