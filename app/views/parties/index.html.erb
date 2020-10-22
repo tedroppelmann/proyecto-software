@@ -64,30 +64,25 @@
 <h1 class="title">
 Fiestas
 </h1>
-<table class="table">
-    <thread>
-        <tr>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Dirección</th>
-            <th>Capacidad</th>
-            <th>Costo</th>
-        </tr>
-    </thread>
 
-    <tbody>
-        <% @parties.each do |party| %>
-            <tr>
-                <td><%= party.titulo %></td>
-                <td><%= party.descripcion %></td>
-                <td><%= party.direccion %></td>
-                <td><%= party.capacidad %></td>
-                <td><%= party.costo %></td>
-                <td><%= link_to "Ver detalle", party_path(party.id)%></td> 
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+<div class="columns is-multiline">
+  <% @parties.each do |party| %>
+  <div class="column is-one-quarter">
+    <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <h3 class="title has-text-black-bis"> <%= party.titulo %></h3>
+            Descripción: <%= party.descripcion %> <br/>
+            Dirección: <%= party.direccion %> <br/>
+            Capacidad: <%= party.capacidad %> <br/>
+            Costos: $<%= party.costo %> <br/> <br/>
+            <%= link_to "Ver detalle", party_path(party.id), class: "button is-link"%>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 </div>
 </div>
