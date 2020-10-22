@@ -16,24 +16,28 @@
       </div>
 
       <% if current_user %>
+      <% if current_user.admin %>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
           Comunas
         </a>
         <div class="navbar-dropdown">
           <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
+
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
         </div>
       </div>
-
+      <% end %>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
           Servicios
         </a>
         <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
           <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
         </div>
       </div>
-      <% end %>
+    <% end %>
     </div>
     <div class="navbar-end">
       <div class="navbar-item">
