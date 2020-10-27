@@ -10,8 +10,9 @@ class PartiesController < ApplicationController
   end
 
   def create
-    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo)
+    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo, :user_id)
     @party = Party.create(@parties_param)
+    
 
     if @party.save
       redirect_to parties_new_path, notice: 'Wow creaste tu party'
