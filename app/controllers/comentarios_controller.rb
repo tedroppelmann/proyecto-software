@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'date'
-
 class ComentariosController < ApplicationController
   def index
     @comentarios = Comentario.all
@@ -14,7 +12,7 @@ class ComentariosController < ApplicationController
   def create
     # tiempo = DateTime.now
     # fecha = current_time.strftime "%d/%m/%Y %H:%M"
-    @comentarios_params = params.require(:comentario).permit(:contenido, :fecha)
+    @comentarios_params = params.require(:comentario).permit(:contenido, :user_id)
     @comentario = Comentario.create(@comentarios_params)
 
     if @comentario.save
@@ -35,7 +33,7 @@ class ComentariosController < ApplicationController
 
   def update
     @comentario = Comentario.find(params[:id])
-    @comentarios_param = params.require(:comentario).permit(:contenido, :fecha)
+    @comentarios_param = params.require(:comentario).permit(:contenido)
 
     if @comentario.update(@comentarios_param)
       redirect_to comentario_path(@comentario.id), notice: 'Comentario editada con exito'

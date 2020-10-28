@@ -1,18 +1,72 @@
-<h2>Inicio</h2>
 
-<% if current_user %>
-  <p> Hola, <%= current_user.first_name %>  <%= current_user.last_name %> </p>
-  <p> <%= link_to "Ver listado de comunas", comunas_index_path%> </p>
-  <p> <%= link_to "Ver listado de parties", parties_index_path%> </p>
-  <p><%= link_to "ver listado de comentario", comentarios_index_path%></p>
-  <p><%=link_to "ver listado de servicios", services_index_path%></p>
-  <p> <%= link_to "Editar cuenta", edit_user_registration_path%> </p>
-  <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
 
-<% else %> 
-  <p> No estas conectado </p> 
-  <p> <%= link_to 'Registrarse', new_user_registration_path %> </p>
-  <p> <%= link_to 'Iniciar sesión', new_user_session_path %> </p>
-<% end %>
+      <% if current_user %>
+      <% if current_user.admin %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
 
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Servicios
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+  <div class="container">
+    <% if current_user %>
+      <h1 class="title">
+      <p> Hola, <%= current_user.first_name %>  <%= current_user.last_name %> </p>
+      </h1>
+      <% else %> 
+      <h1 class="title">
+      Bienvenido a DCCarrete
+      </h1>
+    <% end %>
+  </div>
+</div>
+</section>

@@ -1,28 +1,89 @@
-<h1>Mis Parties </h1>
-<table>
-    <thread>
-        <tr>
-            <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>Direccion</th>
-            <th>Capacidad</th>
-            <th>Costo</th>
-        </tr>
-    </thread>
 
-    <tbody>
-        <% @parties.each do |party| %>
-            <tr>
-                <td><%= party.titulo %></td>
-                <td><%= party.descripcion %></td>
-                <td><%= party.direccion %></td>
-                <td><%= party.capacidad %></td>
-                <td><%= party.costo %></td>
-                <td><%= link_to "Ver detalle", party_path(party.id)%></td> 
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
 
-<%= link_to "volver a agregar party", parties_new_path%><br>
-<%= link_to "volver al inicio", static_pages_home_path%>
+      <% if current_user %>
+      <% if current_user.admin %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
+
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Servicios
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+<div class="container">
+
+
+<h1 class="title">
+Fiestas
+</h1>
+
+<div class="columns is-multiline">
+  <% @parties.each do |party| %>
+  <div class="column is-one-quarter">
+    <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <h3 class="title has-text-black-bis"> <%= party.titulo %></h3>
+            Descripción: <%= party.descripcion %> <br/>
+            Dirección: <%= party.direccion %> <br/>
+            Capacidad: <%= party.capacidad %> <br/>
+            Costos: $<%= party.costo %> <br/> <br/>
+            <%= link_to "Ver detalle", party_path(party.id), class: "button is-link"%>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+</div>
+</div>
+</section>
