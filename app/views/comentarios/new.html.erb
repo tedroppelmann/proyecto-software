@@ -7,12 +7,12 @@
         <%=form.label :contenido%>
         <%=form.text_field :contenido%>
     </div>
-
+    <div class="field">
+        <%=form.label :fecha%>
+        <%=form.text_field :fecha%>
+    </div>
     <div class="action">
         <%=form.submit%>
-    </div>
-    <div class="field">
-        <%= form.hidden_field :user_id, :value => current_user.id%>
     </div>
 
 <% end %>
