@@ -12,7 +12,7 @@ class ComentariosController < ApplicationController
   def create
     # tiempo = DateTime.now
     # fecha = current_time.strftime "%d/%m/%Y %H:%M"
-    @comentarios_params = params.require(:comentario).permit(:contenido)
+    @comentarios_params = params.require(:comentario).permit(:contenido, :user_id)
     @comentario = Comentario.create(@comentarios_params)
 
     if @comentario.save
