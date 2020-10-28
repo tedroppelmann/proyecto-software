@@ -10,9 +10,8 @@ class PartiesController < ApplicationController
   end
 
   def create
-    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo, :user_id)
+    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo)
     @party = Party.create(@parties_param)
-    
 
     if @party.save
       redirect_to parties_new_path, notice: 'Wow creaste tu party'
@@ -31,16 +30,12 @@ class PartiesController < ApplicationController
 
   def update
     @party = Party.find(params[:id])
-    if @party.user_id == current_user.id
-      @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo)
+    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo)
 
-      if @party.update(@parties_param)
-        redirect_to party_path(@party.id), notice: 'Party editada con exito'
-      else
-        redirect_to party_path(@party.id), notice: 'Error al editar party rey'
-      end
+    if @party.update(@parties_param)
+      redirect_to party_path(@party.id), notice: 'Party editada con exito'
     else
-      redirect_to party_path(@party.id), notice: 'no eres ADMIN del carrete'
+      redirect_to party_path(@party.id), notice: 'Error al editar party rey'
     end
   end
 
