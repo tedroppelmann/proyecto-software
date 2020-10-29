@@ -2,5 +2,5 @@
 
 class Party < ApplicationRecord
     belongs_to :user
-    belongs_to :comunas
+    belongs_to :comuna
 end

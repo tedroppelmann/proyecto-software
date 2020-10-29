@@ -10,7 +10,7 @@ class PartiesController < ApplicationController
     @comunas = Comuna.all
     @lista = []
     @comunas.each do |comuna|
-      @lista.append(comuna.nombre)
+      @lista.append(comuna.id)
     end
   end
 

@@ -95,8 +95,8 @@ Crear carrete
     
     <p>
       <div class="field">
-        En que comuna se realiza tu carrete rey:
-        <%= form.select :comuna_id, options_for_select([0, 1, 2]), {class: 'chosen-select'} %>
+        Seleccione el id de la comuna del carrete:
+        <%= form.select :comuna_id, options_for_select(@lista), {class: 'chosen-select'} %>
       </div>
 
     </p>
@@ -108,7 +108,23 @@ Crear carrete
     </div>
     <p><%= notice %></p>
 <% end %>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
 
+    <tbody>
+        <% @comunas.each do |comuna| %>
+            <tr>
+                <td><%= comuna.id %></td>
+                <td><%= comuna.nombre%></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
 
 </div>
 
