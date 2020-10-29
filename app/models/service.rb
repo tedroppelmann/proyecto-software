@@ -6,4 +6,5 @@ class Service < ApplicationRecord
   validates :cap_max, presence: true, numericality: { only_interger: true }
   validates :precio, presence: true, numericality: { only_interger: true }
   has_many :comentarios
+  belongs_to :user
 end

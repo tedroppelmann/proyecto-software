@@ -1,44 +1,113 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-    <strong>Nombre:</strong>
-    <%= @service.nombre %>
-</p>
 
-<p>
-    <strong>Descripcion:</strong>
-    <%= @service.descripcion %>
-</p>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
 
-<p>
-    <strong>Capacidad:</strong>
-    <%= @service.cap_max %>
-</p>
+      <% if current_user %>
+      <% if current_user.admin %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
 
-<p>
-    <strong>Costo:</strong>
-    <%= @service.precio %>
-</p>
-<table>
-    <thead>
-        <tr>
-            <th>Contenido</th>
-            <th>Fecha</th>
-        </tr>
-    </thead>
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Servicios
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 
-    <tbody>
-        <% @c_servicio.each do |comentario| %>
-            <tr>
-                <td><%= comentario.contenido %></td>
-                <td><%= comentario.created_at.strftime("%d-%m-%Y")%></td>
-            </tr>
-            
-        <% end %>
-    </tbody>
-</table>
 
-<%= link_to "Volver al listado", services_index_path%><br>
-<%= link_to "Editar service", service_edit_path%><br>
-<%= link_to "Eliminar service", service_path, method: :delete%><br>
-<%= link_to "Agregar comentario", comentarios_new_path%><br>
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+  <div class="container">
+
+<h1 class="title">
+    Detalles
+</h1>
+
+<div class="columns">
+  <div class="column">
+    <div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> <%= @service.nombre %></h3>
+        Descripción: <%= @service.descripcion %> <br/>
+        Capacidad máxima: <%= @service.cap_max %> <br/>
+        Precio: $<%= @service.precio %> <br/> <br/>
+        </div>
+    </div>
+</div>
+  </div>
+
+  <div class="column">
+
+
+</div>
+  <div class="column">
+  </div>
+
+</div>
+
+<h1 class="title">
+    Comentarios
+</h1>
+
+<div class="columns is-multiline">
+  <% @c_servicio.each do |comentario| %>
+  <div class="column is-one-quarter">
+    <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <h3 class="title has-text-black-bis"> <%= comentario.contenido %></h3>
+            <%= comentario.created_at.strftime("%d-%m-%Y")%></br>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+</div>
+</div>
+</section>

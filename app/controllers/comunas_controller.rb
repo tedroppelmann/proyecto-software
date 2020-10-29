@@ -34,7 +34,7 @@ class ComunasController < ApplicationController
     @comunas_params = params.require(:comuna).permit(:nombre)
 
     if @comuna.update(@comunas_params)
-      redirect_to comuna_path(@comuna.id), notice: 'comuna editada con exito'
+      redirect_to comunas_index_path
     else
       redirect_to comuna_edit_path(@comuna.id), notice: 'error al editar la comuna'
     end
