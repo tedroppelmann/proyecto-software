@@ -1,4 +1,5 @@
 
+
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
@@ -91,6 +92,14 @@ Crear carrete
         <%=form.label :costo, "Costo"%><br />
         <%=form.text_field :costo, required:true%>
     </div>
+    
+    <p>
+      <div class="field">
+        Seleccione el id de la comuna del carrete:
+        <%= form.select :comuna_id, options_for_select(@lista), {class: 'chosen-select'} %>
+      </div>
+
+    </p>
     <div class="actions"> 
         <%=form.submit "Crear carrete", class:"button is-link" %>
     </div>
@@ -99,7 +108,23 @@ Crear carrete
     </div>
     <p><%= notice %></p>
 <% end %>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+        </tr>
+    </thead>
 
+    <tbody>
+        <% @comunas.each do |comuna| %>
+            <tr>
+                <td><%= comuna.id %></td>
+                <td><%= comuna.nombre%></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
 
 </div>
 
