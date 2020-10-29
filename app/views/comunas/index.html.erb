@@ -70,7 +70,7 @@ Comunas
         <div class="card-content">
           <div class="content">
             <h3 class="title has-text-black-bis"> <%= comuna.nombre %></h3>
-            <%= link_to "Editar", comuna_edit_path(comuna.id), class: "button is-link"%>
+            <%= link_to "Editar", comuna_edit_path(comuna.id), class: "button is-warning"%>
             <%= link_to "Eliminar", comuna_path(comuna.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
           </div>
         </div>

@@ -75,13 +75,15 @@ Servicios
             Descripción: <%= service.descripcion %> <br/>
             Capacidad máxima: <%= service.cap_max %> <br/>
             Precio: $<%= service.precio %> <br/> <br/>
-            <% if current_user.services.exists?(service.id) %>
+            <% if current_user.services.exists?(service.id) or current_user.admin%>
+            <p style="text-align:center;">
             <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
             <%= link_to "Editar", service_edit_path(service.id), class: "button is-warning"%>
             <%= link_to "Eliminar", service_path(service.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
             <% else %>
             <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
             <%= link_to "Comentar", comentarios_new_path, class: "button is-link"%>
+            </p>
             <% end %>
           </div>
         </div>

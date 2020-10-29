@@ -89,9 +89,10 @@
             </div>
             <div class="field">
                 <%= form.hidden_field :user_id, :value => current_user.id%>
-            </div>  
+            </div> 
+            
             <div class="action"> 
-                <%=form.submit "Crear servicio", class: "button is-link"%>
+                <%=form.submit "Crear servicio", class: "button is-success"%>
             </div>
         <% end %>
 
