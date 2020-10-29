@@ -19,7 +19,26 @@
     <strong>Costo:</strong>
     <%= @service.precio %>
 </p>
+<table>
+    <thead>
+        <tr>
+            <th>Contenido</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @c_servicio.each do |comentario| %>
+            <tr>
+                <td><%= comentario.contenido %></td>
+                <td><%= comentario.created_at.strftime("%d-%m-%Y")%></td>
+            </tr>
+            
+        <% end %>
+    </tbody>
+</table>
 
 <%= link_to "Volver al listado", services_index_path%><br>
 <%= link_to "Editar service", service_edit_path%><br>
 <%= link_to "Eliminar service", service_path, method: :delete%><br>
+<%= link_to "Agregar comentario", comentarios_new_path%><br>

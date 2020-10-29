@@ -7,6 +7,7 @@ class ServicesController < ApplicationController
 
   def new
     @service = Service.new
+
   end
 
   def create
@@ -22,6 +23,13 @@ class ServicesController < ApplicationController
 
   def show
     @service = Service.find(params[:id])
+    @comentario = Comentario.all
+    @c_servicio = []
+    @comentario.each do |comment|
+      if @service.id == comment.service_id
+        @c_servicio.append(comment)
+      end
+    end
   end
 
   def edit

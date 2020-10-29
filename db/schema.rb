@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_29_052756) do
+ActiveRecord::Schema.define(version: 2020_10_29_063128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,8 +40,6 @@ ActiveRecord::Schema.define(version: 2020_10_29_052756) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.bigint "comuna_id"
-    t.index ["comuna_id"], name: "index_parties_on_comuna_id"
     t.index ["user_id"], name: "index_parties_on_user_id"
   end
 
@@ -73,6 +71,5 @@ ActiveRecord::Schema.define(version: 2020_10_29_052756) do
 
   add_foreign_key "comentarios", "services"
   add_foreign_key "comentarios", "users"
-  add_foreign_key "parties", "comunas"
   add_foreign_key "parties", "users"
 end

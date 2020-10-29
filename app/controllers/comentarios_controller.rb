@@ -7,12 +7,17 @@ class ComentariosController < ApplicationController
 
   def new
     @comentario = Comentario.new
+    @services = Service.all
+    @lista = []
+    @services.each do |service|
+      @lista.append(service.id)
+    end
   end
 
   def create
     # tiempo = DateTime.now
     # fecha = current_time.strftime "%d/%m/%Y %H:%M"
-    @comentarios_params = params.require(:comentario).permit(:contenido, :user_id)
+    @comentarios_params = params.require(:comentario).permit(:contenido, :user_id, :service_id)
     @comentario = Comentario.create(@comentarios_params)
 
     if @comentario.save
