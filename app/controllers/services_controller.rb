@@ -11,11 +11,11 @@ class ServicesController < ApplicationController
   end
 
   def create
-    @services_param = params.require(:service).permit(:nombre, :descripcion, :cap_max, :precio)
+    @services_param = params.require(:service).permit(:nombre, :descripcion, :cap_max, :precio, :user_id)
     @service = Service.create(@services_param)
 
     if @service.save
-      redirect_to services_new_path, notice: 'Wow creaste tu service'
+      redirect_to services_index_path, notice: 'Wow creaste tu service'
     else
       redirect_to services_new_path, notice: 'Error al crear tu service'
     end

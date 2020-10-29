@@ -21,7 +21,7 @@ class ComentariosController < ApplicationController
     @comentario = Comentario.create(@comentarios_params)
 
     if @comentario.save
-      redirect_to comentarios_new_path, notice: 'agregaste un comentario'
+      redirect_to services_index_path, notice: 'agregaste un comentario'
     # esto sirve en vez de poner el path /comunas/new, pasaber usamos rails routes
     else
       redirect_to comentarios_new_path, notice: 'error al agregar un comentario'

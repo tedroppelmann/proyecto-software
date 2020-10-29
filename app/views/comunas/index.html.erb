@@ -1,22 +1,84 @@
-<h1>Mis Comunas</h1>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Detalles</th>
-        </tr>
-    </thead>
+      <% if current_user %>
+      <% if current_user.admin %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
 
-    <tbody>
-        <% @comunas.each do |comuna| %>
-            <tr>
-                <td><%= comuna.nombre %></td>
-                <td><%= link_to "ver detalle", comuna_path(comuna.id)%></td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Servicios
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 
-<%= link_to "volver a agregar comuna", comunas_new_path%><br>
-<%= link_to "volver al inicio", static_pages_home_path%>
+
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+<div class="container">
+
+<h1 class="title">
+Comunas
+</h1>
+
+<div class="columns is-multiline">
+  <% @comunas.each do |comuna| %>
+  <div class="column is-one-quarter">
+    <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <h3 class="title has-text-black-bis"> <%= comuna.nombre %></h3>
+            <%= link_to "Editar", comuna_edit_path(comuna.id), class: "button is-link"%>
+            <%= link_to "Eliminar", comuna_path(comuna.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+</div>
+</div>
+</section>

@@ -62,7 +62,7 @@
 
 
 <h1 class="title">
-Fiestas
+Carretes
 </h1>
 
 <div class="columns is-multiline">
@@ -76,7 +76,14 @@ Fiestas
             Dirección: <%= party.direccion %> <br/>
             Capacidad: <%= party.capacidad %> <br/>
             Costos: $<%= party.costo %> <br/> <br/>
-            <%= link_to "Ver detalle", party_path(party.id), class: "button is-link"%>
+            <% if current_user %>
+            <% if current_user.partys.exists?(party.id) %>
+            <%= link_to "Editar", party_edit_path(party.id), class: "button is-warning"%>
+            <%= link_to "Eliminar", party_path(party.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+            <% else %>
+            <%= link_to "Apostar", party_path(party.id), class: "button is-link"%>
+            <% end %>
+            <% end %>
           </div>
         </div>
       </div>

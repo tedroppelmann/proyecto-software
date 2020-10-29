@@ -1,33 +1,94 @@
 
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
 
-<p id="notice"><%= notice %></p>
+      <% if current_user %>
+      <% if current_user.admin %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
 
-<p>
-    <strong>Titulo:</strong>
-    <%= @party.titulo %>
-</p>
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Servicios
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 
-<p>
-    <strong>Descripcion:</strong>
-    <%= @party.descripcion %>
-</p>
 
-<p>
-    <strong>Direccion:</strong>
-    <%= @party.direccion %>
-</p>
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+<div class="container">
 
-<p>
-    <strong>Capacidad:</strong>
-    <%= @party.capacidad %>
-</p>
+<div class="columns">
+  <div class="column">
+    
+  </div>
 
-<p>
-    <strong>Costo:</strong>
-    <%= @party.costo %>
-</p>
+<div class="column">
 
-<%= link_to "Volver al listado", parties_index_path%><br>
-<%= link_to "Editar party", party_edit_path%><br>
-<%= link_to "Eliminar party", party_path, method: :delete%><br>
 
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> <%= @party.titulo %></h3>
+        Descripción: <%= @party.descripcion %> <br/>
+        Dirección: <%= @party.direccion %> <br/>
+        Capacidad: <%= @party.capacidad %> <br/>
+        Costos: $<%= @party.costo %> <br/> 
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="column">
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+</section>
