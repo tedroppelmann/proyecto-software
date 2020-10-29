@@ -9,3 +9,7 @@
 
 admin = User.create({first_name: 'admin', email: 'admin@gmail.com', password: 'administrador', password_confirmation: 'administrador', admin: true})
 
+lo_barnechea = Comuna.create(nombre: "Lo Barnechea")
+la_reina = Comuna.create(nombre: "La Reina")
+las_condes = Comuna.create(nombre: "Las Condes")
+san_joaquin = Comuna.create(nombre: "San Joaquin")

@@ -7,10 +7,15 @@ class PartiesController < ApplicationController
 
   def new
     @party = Party.new
+    @comunas = Comuna.all
+    @lista = []
+    @comunas.each do |comuna|
+      @lista.append(comuna.nombre)
+    end
   end
 
   def create
-    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo, :user_id)
+    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo, :user_id, :comuna_id)
     @party = Party.create(@parties_param)
     
 
