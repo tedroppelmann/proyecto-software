@@ -69,8 +69,6 @@
 Editar carrete
 </h1>
 
-<p> <%= notice %> </p>
-
 <%= form_with(model: @party, method: :patch, html: {class: 'box'}) do |form| %>
     <div class="field"> 
         <%=form.label :titulo, 'Título'%> <br />
@@ -93,7 +91,7 @@ Editar carrete
         <%=form.text_field :costo%>
     </div>
     <div class="action"> 
-        <%=form.submit "Actualizar", class:"button is-link" %>
+        <%=form.submit "Actualizar", class:"button is-success" %>
     </div>
 <% end %>
 
