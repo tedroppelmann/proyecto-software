@@ -129,7 +129,7 @@ Servicios
             <% else %>
             <p style="text-align:center;">
             <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
-            <%= link_to "Comentar", comentarios_new_path, class: "button is-success"%>
+            <%= link_to "Comentar", comentarios_new_path(service_id: service.id), class: "button is-success"%>
             </p>
             <% end %>
           </div>

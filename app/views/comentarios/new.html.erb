@@ -71,18 +71,14 @@
 
 <%= form_with(model: @comentario, method: :post, html: {class: 'box'}) do |form|%>
     <div class="field">
-        <%=form.label :contenido, 'Mensaje'%> </br>
-        <%=form.text_field :contenido%>
+        <%=form.text_field :contenido, class: "textarea", placeholder: "¡Déjanos tu opinión!"%>
     </div>
     <div class="field">
         <%= form.hidden_field :user_id, :value => current_user.id%>
     </div>
+    
     <div class="field">
-        Seleccione el id de la comuna del carrete:
-        <%= form.select :service_id, options_for_select(@lista), {class: 'chosen-select'} %>
-      </div>
-    <div class="field">
-        <%= form.hidden_field :user_id, :value => current_user.id%>
+        <%= form.hidden_field :service_id%>
     </div>
 
     <div class="action">
@@ -90,24 +86,7 @@
     </div>
 
 <% end %>
-<table>
-    <thread>
-        <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-        </tr>
-    </thread>
 
-    <tbody>
-        <% @services.each do |service| %>
-            <tr>
-                <td><%= service.id %></td>
-                <td><%= service.nombre %></td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
-<%= link_to "ver listado de comentarios", comentarios_index_path%>
 
 </div>
   <div class="column">
