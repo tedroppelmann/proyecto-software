@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_30_022419) do
+ActiveRecord::Schema.define(version: 2020_10_30_035422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,11 @@ ActiveRecord::Schema.define(version: 2020_10_30_022419) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comunas_services", id: false, force: :cascade do |t|
+    t.bigint "comuna_id", null: false
+    t.bigint "service_id", null: false
+  end
+
   create_table "parties", force: :cascade do |t|
     t.string "titulo"
     t.string "descripcion"
@@ -53,6 +58,11 @@ ActiveRecord::Schema.define(version: 2020_10_30_022419) do
     t.bigint "comuna_id"
     t.index ["comuna_id"], name: "index_parties_on_comuna_id"
     t.index ["user_id"], name: "index_parties_on_user_id"
+  end
+
+  create_table "parties_services", id: false, force: :cascade do |t|
+    t.bigint "party_id", null: false
+    t.bigint "service_id", null: false
   end
 
   create_table "services", force: :cascade do |t|

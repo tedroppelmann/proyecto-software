@@ -7,4 +7,6 @@ class Service < ApplicationRecord
   validates :precio, presence: true, numericality: { only_interger: true }
   has_many :comentarios
   belongs_to :user
+  has_and_belongs_to_many :comunas
+  has_and_belongs_to_many :partys
 end
