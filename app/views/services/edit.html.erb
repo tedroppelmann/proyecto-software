@@ -87,6 +87,12 @@ Editar servicio
         <%=form.label :precio, 'Precio'%></br>
         <%=form.text_field :precio%>
     </div>
+    <% if not @service.verified and current_user.admin %>
+        <div class="field"> 
+        <%=form.label :verified, 'Verificar'%></br>
+        <%= form.check_box :verified,{class:"form-check-input", type:"checkbox"}, true, false %>
+    </div>
+    <% end %>
     <div class="action"> 
         <%=form.submit "Actualizar", class:"button is-success" %>
     </div>

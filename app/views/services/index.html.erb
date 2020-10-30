@@ -60,6 +60,42 @@
 <div class="hero-body">
 <div class="container">
 
+<% if not current_user.admin and not current_user.services.empty?%>
+
+<h1 class="title">
+Mis Servicios
+</h1>
+
+<div class="columns is-multiline">
+  <% @services.each do |service| %>
+  <% if current_user.services.exists?(service.id)%>
+  <div class="column is-one-quarter">
+    <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <% if not service.verified%>
+              <h5 class="title has-text-danger"> NO VERIFICADO</h5>
+            <% elsif service.verified%>
+              <h5 class="title has-text-success"> VERIFICADO</h5>
+            <% end %>
+            <h3 class="title has-text-black-bis"> <%= service.nombre %></h3>
+            Descripción: <%= service.descripcion %> <br/>
+            Capacidad máxima: <%= service.cap_max %> <br/>
+            Precio: $<%= service.precio %> <br/> <br/>
+            <p style="text-align:center;">
+            <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
+            <%= link_to "Editar", service_edit_path(service.id), class: "button is-warning"%>
+            <%= link_to "Eliminar", service_path(service.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% end %>
+</div>
+
+<% end %>
 
 <h1 class="title">
 Servicios
@@ -67,20 +103,29 @@ Servicios
 
 <div class="columns is-multiline">
   <% @services.each do |service| %>
+  <% if (not current_user.services.exists?(service.id) and service.verified) or current_user.admin%>
   <div class="column is-one-quarter">
     <div class="card">
         <div class="card-content">
           <div class="content">
+            <% if current_user.admin%>
+              <% if not service.verified%>
+                <h5 class="title has-text-danger"> NO VERIFICADO</h5>
+              <% elsif service.verified%>
+                <h5 class="title has-text-success"> VERIFICADO</h5>
+              <% end %>
+            <% end %>
             <h3 class="title has-text-black-bis"> <%= service.nombre %></h3>
             Descripción: <%= service.descripcion %> <br/>
             Capacidad máxima: <%= service.cap_max %> <br/>
             Precio: $<%= service.precio %> <br/> <br/>
-            <% if current_user.services.exists?(service.id) or current_user.admin%>
+            <% if current_user.admin%>
             <p style="text-align:center;">
             <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
             <%= link_to "Editar", service_edit_path(service.id), class: "button is-warning"%>
             <%= link_to "Eliminar", service_path(service.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
             </p>
+            <p style="text-align:center;">
             <% else %>
             <p style="text-align:center;">
             <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
@@ -91,6 +136,7 @@ Servicios
         </div>
       </div>
     </div>
+  <% end %>
   <% end %>
 </div>
 
