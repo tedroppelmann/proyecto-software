@@ -74,7 +74,9 @@
         <%=form.label :contenido, 'Mensaje'%> </br>
         <%=form.text_field :contenido%>
     </div>
-
+    <div class="field">
+        <%= form.hidden_field :user_id, :value => current_user.id%>
+    </div>
     <div class="field">
         Seleccione el id de la comuna del carrete:
         <%= form.select :service_id, options_for_select(@lista), {class: 'chosen-select'} %>
