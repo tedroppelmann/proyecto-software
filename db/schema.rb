@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_29_182438) do
+ActiveRecord::Schema.define(version: 2020_10_29_204012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assistants", force: :cascade do |t|
+    t.integer "bet"
+    t.bigint "user_id"
+    t.bigint "party_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["party_id"], name: "index_assistants_on_party_id"
+    t.index ["user_id"], name: "index_assistants_on_user_id"
+  end
 
   create_table "comentarios", force: :cascade do |t|
     t.text "contenido"
@@ -73,6 +83,8 @@ ActiveRecord::Schema.define(version: 2020_10_29_182438) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "assistants", "parties"
+  add_foreign_key "assistants", "users"
   add_foreign_key "comentarios", "services"
   add_foreign_key "comentarios", "users"
   add_foreign_key "parties", "comunas"

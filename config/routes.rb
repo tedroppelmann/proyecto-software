@@ -70,6 +70,11 @@ Rails.application.routes.draw do
   patch 'comentarios/:id', to: 'comentarios#update', as: 'comentario_update'
   # DELETE COMMENT
   delete 'comentarios/:id', to: 'comentarios#delete'
+
+  #apuesta
+  get 'parties/:id/bet', to: 'parties#bet', as: 'party_bet'
+  post 'parties/:id/bet', to: 'parties#create_bet', as: 'party_create_bet'
+
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'static_pages/home', to: 'static_pages#home'
