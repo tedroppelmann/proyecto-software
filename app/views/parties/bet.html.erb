@@ -1,0 +1,27 @@
+<div class="column">
+      <h1 class="title">
+      Hacer apuesto por un carrete
+      </h1>
+
+    <%= form_with(model:@assistant, url: party_create_bet_path, method: :post) do |form|%>
+        <div class="field">
+            <%=form.label :bet%> <br />
+            <%=form.number_field :bet%>
+        </div>
+
+        <div class="field">
+        <%= form.hidden_field :user_id, :value => current_user.id%>
+        </div>
+
+        <div class="field">
+        <%= form.hidden_field :party_id, :value => @party.id%>
+        </div>
+
+        <div class="actions">
+          <%= form.submit "Hacer apuesta", class: "button is-success" %>
+        </div>
+    <% end %>
+
+    <p> <%= notice %> </p>
+
+ </div>

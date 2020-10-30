@@ -82,7 +82,7 @@ Carretes
             <%= link_to "Editar", party_edit_path(party.id), class: "button is-warning"%>
             <%= link_to "Eliminar", party_path(party.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
             <% else %>
-            <%= link_to "Apostar", party_path(party.id), class: "button is-success"%>
+            <%= link_to "Apostar", party_bet_path(party.id), class: "button is-success"%>
             <% end %>
             </p>
             <% end %>

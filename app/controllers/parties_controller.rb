@@ -50,4 +50,22 @@ class PartiesController < ApplicationController
     @party.destroy
     redirect_to parties_index_path
   end
+
+  def bet
+    @assistant = Assistant.new
+    @party = Party.find(params[:id])
+  end
+
+  def create_bet
+    @party = Party.find(params[:id])
+    @assistant_param = params.require(:assistant).permit(:bet, :user_id, :party_id)
+    @assistant = Assistant.create(@assistant_param)
+    
+
+    if @assistant.save
+      redirect_to parties_index_path
+    else
+      redirect_to party_bet_path(@party.id), notice: 'Error al hacer la apuesta'
+    end
+  end
 end
