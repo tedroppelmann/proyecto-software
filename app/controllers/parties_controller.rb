@@ -28,6 +28,22 @@ class PartiesController < ApplicationController
 
   def show
     @party = Party.find(params[:id])
+    @usuarios = User.all
+    @todos_los_asistentes = Assistant.all
+    @mis_asistentes = []
+
+    @todos_los_asistentes.each do |relacion|
+      if relacion.party_id == @party.id
+        @usuarios.each do |persona|
+          if relacion.user_id == persona.id
+            agregar = [persona.email, relacion.bet]
+            @mis_asistentes.append(agregar)
+          end
+        end
+      end
+
+    end
+
   end
 
   def edit
@@ -59,13 +75,42 @@ class PartiesController < ApplicationController
   def create_bet
     @party = Party.find(params[:id])
     @assistant_param = params.require(:assistant).permit(:bet, :user_id, :party_id)
-    @assistant = Assistant.create(@assistant_param)
-    
+    @todos_los_asistentes = Assistant.all
+    @mis_asistentes = []
+    @menor = nil
 
-    if @assistant.save
-      redirect_to parties_index_path
+    @todos_los_asistentes.each do |relacion|
+      if relacion.party_id == @party.id
+        @mis_asistentes.append(relacion)
+      end
+    end
+    #caso en que hay menos asistentes que el limite de cantidad
+    if @mis_asistentes.length() < @party.capacidad
+      @assistant = Assistant.create(@assistant_param)
+      if @assistant.save
+        redirect_to parties_index_path
+      else
+        redirect_to party_bet_path(@party.id), notice: 'Error al hacer la apuesta'
+      end
     else
-      redirect_to party_bet_path(@party.id), notice: 'Error al hacer la apuesta'
+
+      @mis_asistentes.each do |relacion|
+        if @menor.nil?
+          @menor = relacion
+        else
+          if @menor.bet > relacion.bet
+            @menor = relacion
+          end
+        end
+      end
+
+      if @menor.update(@assistant_param)
+        redirect_to parties_index_path
+      else
+        redirect_to party_bet_path(@party.id), notice: 'Caso que aun no veo'
+      end
+
     end
   end
+
 end
