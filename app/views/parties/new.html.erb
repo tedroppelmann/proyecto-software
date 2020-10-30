@@ -87,55 +87,44 @@ Crear carrete
     <%=form.text_field :direccion, required:true%>
     </div>
 
+    <div class="field">
+      <%=form.label :comuna_id, "Comuna"%><br />
+      <%= form.select :comuna_id, @comunas.collect { |comuna| [comuna.nombre, comuna.id] } %>
+    </div>
+
     <div class="field"> 
         <%=form.label :capacidad, "Capacidad"%><br />
         <%=form.text_field :capacidad, required:true%>
     </div>
 
-    <% @service_all.each do |trabajo| %>
-      <div class="field"> 
-          <%= form.check_box :verified,{class:"form-check-input", type:"checkbox"}, true, false %>
-          <%=form.label :verified, " Nombre: #{trabajo.nombre}, Precio: #{trabajo.precio}, Capacidad: #{trabajo.cap_max} "%></br>
-      </div>
-    <% end %>
+    <div class="field">
+      <%=form.label :service_ids, "Servicios"%><br />
+      <% for service in Service.all %>
+        <% if service.verified%>
+          <div>
+              <%= check_box_tag "party[service_ids][]", service.id, @party.services.include?(service) %>
+              <%= service.nombre %> ($<%= service.precio %>)
+          </div>
+        <% end %>
+      <% end %>
+    </div>
 
     <div class="field"> 
         <%=form.label :costo, "Costo"%><br />
         <%=form.text_field :costo, required:true%>
     </div>
     
-    <p>
-      <div class="field">
-        Seleccione el id de la comuna del carrete:
-        <%= form.select :comuna_id, options_for_select(@lista), {class: 'chosen-select'} %>
-      </div>
-
-    </p>
-
-    <div class="actions"> 
-        <%=form.submit "Crear carrete", class:"button is-succes" %>
-    </div>
     <div class="field">
         <%= form.hidden_field :user_id, :value => current_user.id%>
     </div>
-<% end %>
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nombre</th>
-        </tr>
-    </thead>
 
-    <tbody>
-        <% @comunas.each do |comuna| %>
-            <tr>
-                <td><%= comuna.id %></td>
-                <td><%= comuna.nombre%></td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+    <div class="actions"> 
+        <%=form.submit "Crear carrete", class: "button is-success" %>
+    </div>
+
+    
+<% end %>
+
 
 
 </div>

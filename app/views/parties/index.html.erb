@@ -60,19 +60,24 @@
 <div class="hero-body">
 <div class="container">
 
-
 <h1 class="title">
-Carretes
+Mis carretes
 </h1>
 
 <div class="columns is-multiline">
   <% @parties.each do |party| %>
+  <% if party.user_id == current_user.id %>
   <div class="column is-one-quarter">
     <div class="card">
         <div class="card-content">
           <div class="content">
             <h3 class="title has-text-black-bis"> <%= party.titulo %></h3>
             Descripción: <%= party.descripcion %> <br/>
+            <% for comuna in Comuna.all %>
+              <% if comuna.id == party.comuna_id %>
+                Comuna: <%= comuna.nombre %> <br/>
+              <% end %>
+            <% end %>
             Dirección: <%= party.direccion %> <br/>
             Capacidad: <%= party.capacidad %> <br/>
             Costos: $<%= party.costo %> <br/> <br/>
@@ -83,6 +88,7 @@ Carretes
             <%= link_to "Editar", party_edit_path(party.id), class: "button is-warning"%>
             <%= link_to "Eliminar", party_path(party.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
             <% else %>
+            <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
             <%= link_to "Apostar", party_bet_path(party.id), class: "button is-success"%>
             <% end %>
             </p>
@@ -91,8 +97,52 @@ Carretes
         </div>
       </div>
     </div>
+    <% end %>
   <% end %>
 </div>
+
+<h1 class="title">
+Carretes
+</h1>
+
+<div class="columns is-multiline">
+  <% @parties.each do |party| %>
+  <% if party.user_id != current_user.id %>
+  <div class="column is-one-quarter">
+    <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <h3 class="title has-text-black-bis"> <%= party.titulo %></h3>
+            Descripción: <%= party.descripcion %> <br/>
+            <% for comuna in Comuna.all %>
+              <% if comuna.id == party.comuna_id %>
+                Comuna: <%= comuna.nombre %> <br/>
+              <% end %>
+            <% end %>
+            Dirección: <%= party.direccion %> <br/>
+            Capacidad: <%= party.capacidad %> <br/>
+            Costos: $<%= party.costo %> <br/> <br/>
+            <% if current_user %>
+            <p style="text-align:center;">
+            <% if party.user_id == current_user.id or current_user.admin%>
+            <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
+            <%= link_to "Editar", party_edit_path(party.id), class: "button is-warning"%>
+            <%= link_to "Eliminar", party_path(party.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+            <% else %>
+            <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
+            <%= link_to "Apostar", party_bet_path(party.id), class: "button is-success"%>
+            <% end %>
+            </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+</div>
+
+
 
 </div>
 </div>

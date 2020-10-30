@@ -14,7 +14,7 @@ class ComunasController < ApplicationController
     @comuna = Comuna.create(@comunas_params)
 
     if @comuna.save
-      redirect_to comunas_new_path, notice: 'agregaste una comuna'
+      redirect_to comunas_index_path
     # esto sirve en vez de poner el path /comunas/new, pasaber usamos rails routes
     else
       redirect_to comunas_new_path, notice: 'error al agregar una comuna'

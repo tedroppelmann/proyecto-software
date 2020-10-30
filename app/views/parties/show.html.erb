@@ -73,12 +73,35 @@
         <div class="content">
         <h3 class="title has-text-black-bis"> <%= @party.titulo %></h3>
         Descripción: <%= @party.descripcion %> <br/>
+        <% for comuna in Comuna.all %>
+          <% if comuna.id == @party.comuna_id %>
+              Comuna: <%= comuna.nombre %> <br/>
+          <% end %>
+        <% end %>
         Dirección: <%= @party.direccion %> <br/>
         Capacidad: <%= @party.capacidad %> <br/>
         Costos: $<%= @party.costo %> <br/> 
         </div>
     </div>
 </div>
+<br/> 
+
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> Servicios </h3>
+        <% for service in Service.all %>
+          <% if @party.service_ids.include? service.id %>
+            <div>
+                <%= service.nombre %>
+            </div>
+          <% end %>
+      <% end %>
+        </div>
+    </div>
+</div>
+
+<% if @party.user_id == current_user.id or current_user.admin%>
 <br/> 
 <div class="card">
     <div class="card-content">
@@ -103,6 +126,7 @@
         </div>
     </div>
 </div>
+<% end%>
 
 </div>
 

@@ -90,6 +90,17 @@ Editar carrete
         <%=form.label :costo, 'Costo'%><br />
         <%=form.text_field :costo%>
     </div>
+
+    <div class="field">
+      <%=form.label :service_ids, "Servicios"%><br />
+      <% for service in Service.all %>
+          <div>
+              <%= check_box_tag "party[service_ids][]", service.id, @party.services.include?(service) %>
+              <%= service.nombre %>
+          </div>
+      <% end %>
+    </div>
+
     <div class="action"> 
         <%=form.submit "Actualizar", class:"button is-success" %>
     </div>

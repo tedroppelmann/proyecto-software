@@ -90,7 +90,8 @@ Editar servicio
     <% if not @service.verified and current_user.admin %>
         <div class="field"> 
         <%= form.check_box :verified,{class:"form-check-input", type:"checkbox"}, true, false %>
-        <%=form.label :verified, 'Verificar'%></br>
+        <%=form.label :verified, 'Verificar'%>
+        </div>
     <% end %>
     <div class="action"> 
         <%=form.submit "Actualizar", class:"button is-success" %>

@@ -6,7 +6,9 @@ class ComentariosController < ApplicationController
   end
 
   def new
-    @comentario = Comentario.new
+    @comentario = Comentario.new(service_id: params[:service_id])
+    @service = Service.find(params[:service_id])
+
     @services = Service.all
     @lista = []
     @services.each do |service|
@@ -21,10 +23,10 @@ class ComentariosController < ApplicationController
     @comentario = Comentario.create(@comentarios_params)
 
     if @comentario.save
-      redirect_to services_index_path, notice: 'agregaste un comentario'
+      redirect_to service_path(@comentario.service_id)
     # esto sirve en vez de poner el path /comunas/new, pasaber usamos rails routes
     else
-      redirect_to comentarios_new_path, notice: 'error al agregar un comentario'
+      redirect_to comentarios_new_path(service_id: @comentario.service_id)
     end
   end
 
