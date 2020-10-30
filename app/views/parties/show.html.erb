@@ -87,11 +87,18 @@
         <table class="table">
         <thead>
         <tr>
-          <th><abbr title="Usuario">Usuario</abbr></th>
+          <th><abbr title="Mail">Usuario</abbr></th>
           <th><abbr title="Monto">Monto</abbr></th>
         </tr>
         </thead>
-        
+        <tbody>
+        <% @mis_asistentes.each do |asistente| %>
+            <tr>
+                <td><%= asistente[0] %></td>
+                <td><%= asistente[1]%></td>
+            </tr>
+        <% end %>
+    </tbody>
       </table>
         </div>
     </div>
