@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :partys, dependent: :destroy
   has_many :comentarios, dependent: :destroy
   has_many :services, dependent: :destroy
-  #para ver lo de las apuestas
+  # para ver lo de las apuestas
   has_many :assistants, dependent: :destroy
   has_many :partys, through: :assistants, dependent: :destroy
 

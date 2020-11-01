@@ -16,7 +16,7 @@ class PartiesController < ApplicationController
   end
 
   def create
-    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo, :user_id, :comuna_id, {service_ids: []})
+    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo, :user_id, :comuna_id, { service_ids: [] })
     @party = Party.create(@parties_param)
 
     if @party.save
@@ -33,17 +33,15 @@ class PartiesController < ApplicationController
     @mis_asistentes = []
 
     @todos_los_asistentes.each do |relacion|
-      if relacion.party_id == @party.id
-        @usuarios.each do |persona|
-          if relacion.user_id == persona.id
-            agregar = [persona.email, relacion.bet]
-            @mis_asistentes.append(agregar)
-          end
+      next unless relacion.party_id == @party.id
+
+      @usuarios.each do |persona|
+        if relacion.user_id == persona.id
+          agregar = [persona.email, relacion.bet]
+          @mis_asistentes.append(agregar)
         end
       end
-
     end
-
   end
 
   def edit
@@ -52,7 +50,7 @@ class PartiesController < ApplicationController
 
   def update
     @party = Party.find(params[:id])
-    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo, {service_ids: []})
+    @parties_param = params.require(:party).permit(:titulo, :descripcion, :direccion, :capacidad, :costo, { service_ids: [] })
 
     if @party.update(@parties_param)
       redirect_to parties_index_path
@@ -80,12 +78,10 @@ class PartiesController < ApplicationController
     @menor = nil
 
     @todos_los_asistentes.each do |relacion|
-      if relacion.party_id == @party.id
-        @mis_asistentes.append(relacion)
-      end
+      @mis_asistentes.append(relacion) if relacion.party_id == @party.id
     end
-    #caso en que hay menos asistentes que el limite de cantidad
-    if @mis_asistentes.length() < @party.capacidad
+    # caso en que hay menos asistentes que el limite de cantidad
+    if @mis_asistentes.length < @party.capacidad
       @assistant = Assistant.create(@assistant_param)
       if @assistant.save
         redirect_to parties_index_path
@@ -98,9 +94,7 @@ class PartiesController < ApplicationController
         if @menor.nil?
           @menor = relacion
         else
-          if @menor.bet > relacion.bet
-            @menor = relacion
-          end
+          @menor = relacion if @menor.bet > relacion.bet
         end
       end
 
@@ -117,9 +111,7 @@ class PartiesController < ApplicationController
     @party = Party.find(params[:id])
     @assistant = nil
     Assistant.all.each do |comparar|
-      if comparar.user_id ==  current_user.id and comparar.party_id == @party.id
-        @assistant = comparar
-      end
+      @assistant = comparar if (comparar.user_id == current_user.id) && (comparar.party_id == @party.id)
     end
   end
 
@@ -129,9 +121,7 @@ class PartiesController < ApplicationController
 
     @assistant = nil
     Assistant.all.each do |comparar|
-      if comparar.user_id ==  current_user.id and comparar.party_id == @party.id
-        @assistant = comparar
-      end
+      @assistant = comparar if (comparar.user_id == current_user.id) && (comparar.party_id == @party.id)
     end
 
     if @assistant.update(@assistant_param)
@@ -140,5 +130,4 @@ class PartiesController < ApplicationController
       redirect_to party_edit_path(@party.id), notice: 'Error al editar la apuesta'
     end
   end
-
 end

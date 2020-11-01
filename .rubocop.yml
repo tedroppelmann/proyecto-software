@@ -86,3 +86,32 @@ Naming/VariableName:
 
 Documentation:
     Enabled: false
+
+Metrics/MethodLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 40
+
+# Disable cyclomatic complexity which is a number of paths through a method
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+# Disable checking of ABC metrics (assignment, branch, condition)
+Metrics/AbcSize:
+  Enabled: false
+
+# Disable method perceived complexity (how it is hard to read a method)
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# Finds if nodes inside else, which can be converted to elsif.
+Style/IfInsideElse:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
