@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 
+
+
 RSpec.describe Comuna, type: :model do
   it 'creates correctly' do
     comuna = Comuna.new(nombre: 'San Joaquin')

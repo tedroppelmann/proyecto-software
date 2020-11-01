@@ -70,3 +70,7 @@ gem 'devise', '~> 4.2'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'simplecov', '~> 0.19.0'
+
+
+gem 'factory_bot_rails'
+gem 'faker'
