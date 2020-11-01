@@ -9,7 +9,7 @@
         </a>
         <div class="navbar-dropdown">
           <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
-          <% if current_user %>
+          <% if current_user and not current_user.admin %>
           <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
           <% end %>
         </div>
@@ -34,7 +34,9 @@
         </a>
         <div class="navbar-dropdown">
           <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <% if not current_user.admin %>
           <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+          <% end %>
         </div>
       </div>
     <% end %>
