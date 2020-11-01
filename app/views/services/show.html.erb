@@ -96,9 +96,21 @@
   <% @c_servicio.each do |comentario| %>
   <div class="column is-one-quarter">
     <div class="card">
-        <div class="card-content">
-          <div class="content">
-            <h3 class="title has-text-black-bis"> <%= comentario.contenido %></h3>
+        <div class="message is-info">
+        <div class="message-header">
+        <% if comentario.user_id == current_user.id%>
+          Tú
+          <%= link_to "Eliminar", comentario_path(comentario.id), method: :delete, class: "delete", data: { confirm: "¿Estás seguro?" }%>
+        <% end %>
+        <% User.all.each do |usuario| %>
+          <% if usuario.id == comentario.user_id and comentario.user_id != current_user.id%>
+            <%= usuario.first_name %> <%= usuario.last_name %>
+          <% end %>
+
+        <% end %>
+      </div>
+          <div class="message-body">
+            <%= comentario.contenido %> </br>
             <%= comentario.created_at.strftime("%d-%m-%Y")%></br>
           </div>
         </div>

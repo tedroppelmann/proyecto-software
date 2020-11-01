@@ -52,6 +52,6 @@ class ComentariosController < ApplicationController
   def delete
     @comentario = Comentario.find(params[:id])
     @comentario.destroy
-    redirect_to comentarios_index_path
+    redirect_to service_path(@comentario.service_id)
   end
 end
