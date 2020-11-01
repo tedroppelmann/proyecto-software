@@ -75,6 +75,10 @@ Rails.application.routes.draw do
   get 'parties/:id/bet', to: 'parties#bet', as: 'party_bet'
   post 'parties/:id/bet', to: 'parties#create_bet', as: 'party_create_bet'
 
+  #update_apuesta
+  get 'parties/:id/edit_bet', to: 'parties#edit_bet', as: 'party_edit_bet'
+  patch 'parties/:id/edit_bet', to: 'parties#update_bet', as: 'party_update_bet'
+
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'static_pages/home', to: 'static_pages#home'

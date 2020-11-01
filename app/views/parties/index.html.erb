@@ -125,7 +125,7 @@ Carretes
             <% apuesta = 0 %>
             <% Assistant.all.each do |carrete| %>
               <% if carrete.user_id == current_user.id and carrete.party_id == party.id %>
-                <%= link_to "Volver a apostar", party_bet_path(party.id), class: "button is-success"%>
+                <%= link_to "Volver a apostar", party_edit_bet_path(party.id), class: "button is-success"%>
                 <% apuesta = 1 %>
                 <% break %>
                 <% end %>
