@@ -113,4 +113,32 @@ class PartiesController < ApplicationController
     end
   end
 
+  def edit_bet
+    @party = Party.find(params[:id])
+    @assistant = nil
+    Assistant.all.each do |comparar|
+      if comparar.user_id ==  current_user.id and comparar.party_id == @party.id
+        @assistant = comparar
+      end
+    end
+  end
+
+  def update_bet
+    @party = Party.find(params[:id])
+    @assistant_param = params.require(:assistant).permit(:bet, :user_id, :party_id)
+
+    @assistant = nil
+    Assistant.all.each do |comparar|
+      if comparar.user_id ==  current_user.id and comparar.party_id == @party.id
+        @assistant = comparar
+      end
+    end
+
+    if @assistant.update(@assistant_param)
+      redirect_to parties_index_path
+    else
+      redirect_to party_edit_path(@party.id), notice: 'Error al editar la apuesta'
+    end
+  end
+
 end
