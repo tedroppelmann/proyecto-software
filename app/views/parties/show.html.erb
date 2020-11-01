@@ -1,30 +1,144 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-    <strong>Titulo:</strong>
-    <%= @party.titulo %>
-</p>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user and not current_user.admin %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
 
-<p>
-    <strong>Descripcion:</strong>
-    <%= @party.descripcion %>
-</p>
+      <% if current_user %>
+      <% if current_user.admin %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
 
-<p>
-    <strong>Direccion:</strong>
-    <%= @party.direccion %>
-</p>
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Servicios
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <% if not current_user.admin %>
+          <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
 
-<p>
-    <strong>Capacidad:</strong>
-    <%= @party.capacidad %>
-</p>
 
-<p>
-    <strong>Costo:</strong>
-    <%= @party.costo %>
-</p>
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+<div class="container">
 
-<%= link_to "Volver al listado", parties_index_path%><br>
-<%= link_to "Editar party", party_edit_path%><br>
-<%= link_to "Eliminar party", party_path, method: :delete%><br>
+<div class="columns">
+  <div class="column">
+    
+  </div>
+
+<div class="column">
+
+
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> <%= @party.titulo %></h3>
+        Descripción: <%= @party.descripcion %> <br/>
+        <% for comuna in Comuna.all %>
+          <% if comuna.id == @party.comuna_id %>
+              Comuna: <%= comuna.nombre %> <br/>
+          <% end %>
+        <% end %>
+        Dirección: <%= @party.direccion %> <br/>
+        Capacidad: <%= @party.capacidad %> <br/>
+        Costos: $<%= @party.costo %> <br/> 
+        </div>
+    </div>
+</div>
+<br/> 
+
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> Servicios </h3>
+        <% for service in Service.all %>
+          <% if @party.service_ids.include? service.id %>
+            <div>
+                <%= service.nombre %>
+            </div>
+          <% end %>
+      <% end %>
+        </div>
+    </div>
+</div>
+
+<% if @party.user_id == current_user.id or current_user.admin%>
+<br/> 
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> Apuestas </h3>
+        <table class="table">
+        <thead>
+        <tr>
+          <th><abbr title="Mail">Usuario</abbr></th>
+          <th><abbr title="Monto">Monto</abbr></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @mis_asistentes.each do |asistente| %>
+            <tr>
+                <td><%= asistente[0] %></td>
+                <td><%= asistente[1]%></td>
+            </tr>
+        <% end %>
+    </tbody>
+      </table>
+        </div>
+    </div>
+</div>
+<% end%>
+
+</div>
+
+<div class="column">
+
+</div>
+
+</div>
+
+
+</div>
+</div>
+</section>

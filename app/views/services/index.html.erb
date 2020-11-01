@@ -1,26 +1,148 @@
-<h1>Mis Service </h1>
-<table>
-    <thread>
-        <tr>
-            <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Cap Max</th>
-            <th>Precio</th>
-        </tr>
-    </thread>
 
-    <tbody>
-        <% @services.each do |service| %>
-            <tr>
-                <td><%= service.nombre %></td>
-                <td><%= service.descripcion %></td>
-                <td><%= service.cap_max %></td>
-                <td><%= service.precio %></td>
-                <td><%= link_to "Ver detalle", service_path(service.id)%></td> 
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user and not current_user.admin %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
 
-<%= link_to "volver a agregar service", services_new_path%><br>
-<%= link_to "volver al inicio", static_pages_home_path%>
+      <% if current_user %>
+      <% if current_user.admin %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
+
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Servicios
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <% if not current_user.admin %>
+          <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+<div class="container">
+
+<% if not current_user.admin and not current_user.services.empty?%>
+
+<h1 class="title">
+Mis Servicios
+</h1>
+
+<div class="columns is-multiline">
+  <% @services.each do |service| %>
+  <% if current_user.services.exists?(service.id)%>
+  <div class="column is-one-quarter">
+    <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <% if not service.verified%>
+              <h5 class="title has-text-danger"> NO VERIFICADO</h5>
+            <% elsif service.verified%>
+              <h5 class="title has-text-success"> VERIFICADO</h5>
+            <% end %>
+            <h3 class="title has-text-black-bis"> <%= service.nombre %></h3>
+            Descripción: <%= service.descripcion %> <br/>
+            Capacidad máxima: <%= service.cap_max %> <br/>
+            Precio: $<%= service.precio %> <br/> <br/>
+            <p style="text-align:center;">
+            <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
+            <%= link_to "Editar", service_edit_path(service.id), class: "button is-warning"%>
+            <%= link_to "Eliminar", service_path(service.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% end %>
+</div>
+
+<% end %>
+
+<h1 class="title">
+Servicios
+</h1>
+
+<div class="columns is-multiline">
+  <% @services.each do |service| %>
+  <% if (not current_user.services.exists?(service.id) and service.verified) or current_user.admin%>
+  <div class="column is-one-quarter">
+    <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <% if current_user.admin%>
+              <% if not service.verified%>
+                <h5 class="title has-text-danger"> NO VERIFICADO</h5>
+              <% elsif service.verified%>
+                <h5 class="title has-text-success"> VERIFICADO</h5>
+              <% end %>
+            <% end %>
+            <h3 class="title has-text-black-bis"> <%= service.nombre %></h3>
+            Descripción: <%= service.descripcion %> <br/>
+            Capacidad máxima: <%= service.cap_max %> <br/>
+            Precio: $<%= service.precio %> <br/> <br/>
+            <% if current_user.admin%>
+            <p style="text-align:center;">
+            <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
+            <%= link_to "Editar", service_edit_path(service.id), class: "button is-warning"%>
+            <%= link_to "Eliminar", service_path(service.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+            </p>
+            <p style="text-align:center;">
+            <% else %>
+            <p style="text-align:center;">
+            <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
+            <%= link_to "Comentar", comentarios_new_path(service_id: service.id), class: "button is-success"%>
+            </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% end %>
+</div>
+
+
+</div>
+</div>
+</section>

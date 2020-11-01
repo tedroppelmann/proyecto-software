@@ -1,31 +1,111 @@
-<h1>Nuevo service</h1>
 
-<p> <%= notice %> </p>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user and not current_user.admin %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
 
-<%= form_with(model: @service, method: :post) do |form| %>
-    <div class="field"> 
-        <%=form.label :nombre%>
-        <%=form.text_field :nombre%>
+      <% if current_user %>
+      <% if current_user.admin %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
+
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Servicios
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <% if not current_user.admin %>
+          <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
     </div>
-    <br>
-    <div class="field"> 
-        <%=form.label :descripcion%>
-        <%=form.text_field :descripcion%>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
     </div>
-    <br>
-    <div class="field"> 
-        <%=form.label :cap_max%>
-        <%=form.text_field :cap_max%>
-    </div>
-    <br>
-    <div class="field"> 
-        <%=form.label :precio%>
-        <%=form.text_field :precio%>
-    </div>
-    <br>
-    <div class="action"> 
-        <%=form.submit%>
-    </div>
-<% end %>
-<%= link_to "ver listado de parties", parties_index_path%>
-<br>
+  </div>
+</nav>
+
+
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+  <div class="container">
+
+<div class="columns">
+  <div class="column">
+    
+  </div>
+
+  <div class="column">
+      <h1 class="title">
+      Crear servicio
+      </h1>
+
+        <%= form_with(model: @service, method: :post, html: {class: 'box'}) do |form| %>
+            <div class="field"> 
+                <%=form.label :nombre, 'Nombre'%></br>
+                <%=form.text_field :nombre%>
+            </div>
+            <div class="field"> 
+                <%=form.label :descripcion, 'Descripción'%></br>
+                <%=form.text_field :descripcion%>
+            </div>
+            <div class="field"> 
+                <%=form.label :cap_max, 'Capacidad máxima'%></br>
+                <%=form.text_field :cap_max%>
+            </div>
+            <div class="field"> 
+                <%=form.label :precio, 'Precio'%></br>
+                <%=form.text_field :precio%>
+            </div>
+            <div class="field">
+                <%= form.hidden_field :user_id, :value => current_user.id%>
+            </div> 
+            
+            <div class="action"> 
+                <%=form.submit "Crear servicio", class: "button is-success"%>
+            </div>
+        <% end %>
+
+</div>
+  <div class="column">
+    
+  </div>
+
+</div>
+
+
+</div>
+</div>
+</section>

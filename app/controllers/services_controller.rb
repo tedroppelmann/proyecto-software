@@ -10,11 +10,11 @@ class ServicesController < ApplicationController
   end
 
   def create
-    @services_param = params.require(:service).permit(:nombre, :descripcion, :cap_max, :precio)
+    @services_param = params.require(:service).permit(:nombre, :descripcion, :cap_max, :precio, :user_id, :verified)
     @service = Service.create(@services_param)
 
     if @service.save
-      redirect_to services_new_path, notice: 'Wow creaste tu service'
+      redirect_to services_index_path, notice: 'Wow creaste tu service'
     else
       redirect_to services_new_path, notice: 'Error al crear tu service'
     end
@@ -22,6 +22,11 @@ class ServicesController < ApplicationController
 
   def show
     @service = Service.find(params[:id])
+    @comentario = Comentario.all
+    @c_servicio = []
+    @comentario.each do |comment|
+      @c_servicio.append(comment) if @service.id == comment.service_id
+    end
   end
 
   def edit
@@ -30,10 +35,10 @@ class ServicesController < ApplicationController
 
   def update
     @service = Service.find(params[:id])
-    @services_param = params.require(:service).permit(:nombre, :descripcion, :cap_max, :precio)
+    @services_param = params.require(:service).permit(:nombre, :descripcion, :cap_max, :precio, :verified)
 
     if @service.update(@services_param)
-      redirect_to service_path(@service.id), notice: 'Service editada con exito'
+      redirect_to services_index_path, notice: 'Service editada con exito'
     else
       redirect_to service_path(@service.id), notice: 'Error al editar servicio rey'
     end

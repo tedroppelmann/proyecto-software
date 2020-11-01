@@ -10,22 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_015507) do
+ActiveRecord::Schema.define(version: 2020_10_30_035422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "comentarios", force: :cascade do |t|
-    t.text "contenido"
-    t.string "fecha"
+  create_table "assistants", force: :cascade do |t|
+    t.integer "bet"
+    t.bigint "user_id"
+    t.bigint "party_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["party_id"], name: "index_assistants_on_party_id"
+    t.index ["user_id"], name: "index_assistants_on_user_id"
+  end
+
+  create_table "comentarios", force: :cascade do |t|
+    t.text "contenido"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "service_id"
+    t.index ["service_id"], name: "index_comentarios_on_service_id"
+    t.index ["user_id"], name: "index_comentarios_on_user_id"
   end
 
   create_table "comunas", force: :cascade do |t|
     t.string "nombre"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comunas_services", id: false, force: :cascade do |t|
+    t.bigint "comuna_id", null: false
+    t.bigint "service_id", null: false
   end
 
   create_table "parties", force: :cascade do |t|
@@ -36,6 +54,15 @@ ActiveRecord::Schema.define(version: 2020_10_09_015507) do
     t.integer "costo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "comuna_id"
+    t.index ["comuna_id"], name: "index_parties_on_comuna_id"
+    t.index ["user_id"], name: "index_parties_on_user_id"
+  end
+
+  create_table "parties_services", id: false, force: :cascade do |t|
+    t.bigint "party_id", null: false
+    t.bigint "service_id", null: false
   end
 
   create_table "services", force: :cascade do |t|
@@ -45,6 +72,9 @@ ActiveRecord::Schema.define(version: 2020_10_09_015507) do
     t.integer "precio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.boolean "verified", default: false
+    t.index ["user_id"], name: "index_services_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,8 +89,16 @@ ActiveRecord::Schema.define(version: 2020_10_09_015507) do
     t.string "last_name"
     t.integer "age", default: 0
     t.integer "phone_number"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "assistants", "parties"
+  add_foreign_key "assistants", "users"
+  add_foreign_key "comentarios", "services"
+  add_foreign_key "comentarios", "users"
+  add_foreign_key "parties", "comunas"
+  add_foreign_key "parties", "users"
+  add_foreign_key "services", "users"
 end

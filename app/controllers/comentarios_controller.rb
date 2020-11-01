@@ -1,27 +1,32 @@
 # frozen_string_literal: true
 
-require 'date'
-
 class ComentariosController < ApplicationController
   def index
     @comentarios = Comentario.all
   end
 
   def new
-    @comentario = Comentario.new
+    @comentario = Comentario.new(service_id: params[:service_id])
+    @service = Service.find(params[:service_id])
+
+    @services = Service.all
+    @lista = []
+    @services.each do |service|
+      @lista.append(service.id)
+    end
   end
 
   def create
     # tiempo = DateTime.now
     # fecha = current_time.strftime "%d/%m/%Y %H:%M"
-    @comentarios_params = params.require(:comentario).permit(:contenido, :fecha)
+    @comentarios_params = params.require(:comentario).permit(:contenido, :user_id, :service_id)
     @comentario = Comentario.create(@comentarios_params)
 
     if @comentario.save
-      redirect_to comentarios_new_path, notice: 'agregaste un comentario'
+      redirect_to service_path(@comentario.service_id)
     # esto sirve en vez de poner el path /comunas/new, pasaber usamos rails routes
     else
-      redirect_to comentarios_new_path, notice: 'error al agregar un comentario'
+      redirect_to comentarios_new_path(service_id: @comentario.service_id)
     end
   end
 
@@ -35,7 +40,7 @@ class ComentariosController < ApplicationController
 
   def update
     @comentario = Comentario.find(params[:id])
-    @comentarios_param = params.require(:comentario).permit(:contenido, :fecha)
+    @comentarios_param = params.require(:comentario).permit(:contenido)
 
     if @comentario.update(@comentarios_param)
       redirect_to comentario_path(@comentario.id), notice: 'Comentario editada con exito'
@@ -47,6 +52,6 @@ class ComentariosController < ApplicationController
   def delete
     @comentario = Comentario.find(params[:id])
     @comentario.destroy
-    redirect_to comentarios_index_path
+    redirect_to service_path(@comentario.service_id)
   end
 end

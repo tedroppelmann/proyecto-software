@@ -1,3 +1,4 @@
+
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
@@ -59,37 +60,39 @@
 
 <section class="hero is-link is-fullheight-with-navbar">
 <div class="hero-body">
-  <div class="container">
+<div class="container">
 
 <div class="columns">
   <div class="column">
     
   </div>
 
-  <div class="column">
-      <h1 class="title">
-      Crear comentario
-      </h1>
+<div class="column">
+<h1 class="title">
+Apuesta
+</h1>
 
-<%= form_with(model: @comentario, method: :post, html: {class: 'box'}) do |form|%>
-    <div class="field">
-        <%=form.text_field :contenido, class: "textarea", placeholder: "¡Déjanos tu opinión!"%>
-    </div>
-    <div class="field">
+    <%= form_with(model:@assistant, url: party_create_bet_path, method: :post, html: {class: 'box'}) do |form|%>
+        <div class="field">
+            <%=form.label :bet, 'Apuesta'%> <br />
+            <%=form.number_field :bet%>
+        </div>
+
+        <div class="field">
         <%= form.hidden_field :user_id, :value => current_user.id%>
-    </div>
-    
-    <div class="field">
-        <%= form.hidden_field :service_id%>
-    </div>
-    <div class="action">
-        <%=form.submit "Comentar", class: "button is-success"%>
-    </div>
+        </div>
 
-<% end %>
+        <div class="field">
+        <%= form.hidden_field :party_id, :value => @party.id%>
+        </div>
 
+        <div class="actions">
+          <%= form.submit "Hacer apuesta", class: "button is-success" %>
+        </div>
+    <% end %>
 
-</div>
+ </div>
+
   <div class="column">
     
   </div>
