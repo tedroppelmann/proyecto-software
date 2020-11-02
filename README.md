@@ -6,7 +6,16 @@ Información relevante hasta el momento:
 
 * URL página web: https://dccarrete-grupo44.herokuapp.com
 
+Información útil:
 
-Comandos: sudo service postgresql start
+* Las credenciales del admin son:
 
-Para poder ver todas las rutas que tenemos : rails routes
+  ** Email: admin@gmail.com
+  
+  ** Contraseña: administrador
+
+* El admin para verificar un servicio tiene que ingresar a la sección "editar" del servicio respectivo.
+
+* La navbar incluye carretes, servicios y comunas para el admin. Los usuarios no tienen acceso a comunas y el admin no tiene acceso a crear un carrete o un servicio. 
+
+* Los comentarios se ven dentro de cada servicio y el admin tiene el poder de eliminar el que quiera.
