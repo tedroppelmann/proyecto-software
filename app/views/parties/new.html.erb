@@ -82,6 +82,8 @@ Crear carrete
         <%=form.label :descripcion, "Descripción" %><br />
         <%=form.text_field :descripcion, required:true%>
     </div>
+    Fecha<br>
+    <%= form.date_field :fecha, class: 'form-control' %>
     <div class="field"> 
     <%=form.label :direccion, "Dirección"%><br />
     <%=form.text_field :direccion, required:true%>
