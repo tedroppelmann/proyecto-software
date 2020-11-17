@@ -47,7 +47,9 @@
           <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
           <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
           <% else %> 
-          <%= link_to "Mi perfil", user_show_session_path, class:"button is-link" %> 
+            <% if not current_user.admin %>
+            <%= link_to "Mi perfil", user_show_session_path, class:"button is-link" %> 
+            <% end %>
           <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
           <% end %>
         </div>
@@ -128,7 +130,7 @@ Mis servicios
 </h1>
 
 <div class="columns is-multiline">
-<% cantidad = 0 %>
+  <% cantidad = 0 %>
   <% current_user.services.each do |service| %>
   <% cantidad = 1 %>
     <div class="column is-one-quarter">
@@ -159,6 +161,38 @@ Mis servicios
   <% end %>
 </div>
 
+<h1 class="title">
+Mis comentarios
+</h1>
+
+<div class="columns is-multiline">
+  <% cantidad = 0 %>
+  <% current_user.comentarios.each do |comentario| %>
+  <% cantidad = 1 %>
+    <div class="column is-one-quarter">
+    <div class="card">
+        <div class="message is-info">
+          <div class="message-header">
+            <% Service.all.each do |servicio| %>
+              <% if servicio.id == comentario.service_id%>
+                Tú a <%= servicio.nombre %>
+              <% end %>
+            <% end %>
+            <%= link_to "Eliminar", comentario_path(comentario.id), method: :delete, class: "delete", data: { confirm: "¿Estás seguro?" }%>
+          </div>
+          <div class="message-body">
+            <%= comentario.contenido %> </br>
+            <%= comentario.created_at.strftime("%d-%m-%Y")%></br>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  <% end %>
+  <% if cantidad != 1 %>
+    <h1 class="subtitle">No has hecho ningún comentario.</h1>
+  <% end %>
+</div>
 
 </div>
 </div>
