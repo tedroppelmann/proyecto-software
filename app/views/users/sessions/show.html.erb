@@ -170,7 +170,7 @@ Mis comentarios
   <% current_user.comentarios.each do |comentario| %>
   <% cantidad = 1 %>
     <div class="column is-one-quarter">
-    <div class="card">
+      <div class="card">
         <div class="message is-info">
           <div class="message-header">
             <% Service.all.each do |servicio| %>
@@ -185,7 +185,6 @@ Mis comentarios
             <%= comentario.created_at.strftime("%d-%m-%Y")%></br>
           </div>
         </div>
-      </div>
       </div>
     </div>
   <% end %>
