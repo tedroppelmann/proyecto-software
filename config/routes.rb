@@ -80,6 +80,9 @@ Rails.application.routes.draw do
   patch 'parties/:id/edit_bet', to: 'parties#update_bet', as: 'party_update_bet'
 
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }
+  devise_scope :user do
+    get "users/sessions/show", to: "users/sessions#show", as: "user_show_session"
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'static_pages/home', to: 'static_pages#home'
   root to: 'static_pages#home'
