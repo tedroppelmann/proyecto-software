@@ -1,4 +1,3 @@
-
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
@@ -48,7 +47,9 @@
           <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
           <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
           <% else %> 
-          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+            <% if not current_user.admin %>
+            <%= link_to "Mi perfil", user_show_session_path, class:"button is-link" %> 
+            <% end %>
           <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
           <% end %>
         </div>
@@ -104,8 +105,10 @@ Servicios
 </h1>
 
 <div class="columns is-multiline">
+  <% cantidad = 0 %>
   <% @services.each do |service| %>
   <% if (not current_user.services.exists?(service.id) and service.verified) or current_user.admin%>
+  <% cantidad = 1 %>
   <div class="column is-one-quarter">
     <div class="card">
         <div class="card-content">
@@ -139,6 +142,9 @@ Servicios
       </div>
     </div>
   <% end %>
+  <% end %>
+  <% if cantidad != 1 %>
+    <h1 class="subtitle">No hay servicios que mostrar.</h1>
   <% end %>
 </div>
 

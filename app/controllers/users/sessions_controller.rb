@@ -6,6 +6,7 @@ module Users
 
     def show
       @parties = Party.all
+      @services = Service.all
     end
 
     # GET /resource/sign_in

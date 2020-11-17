@@ -47,7 +47,9 @@
           <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
           <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
           <% else %> 
-          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+            <% if not current_user.admin %>
+            <%= link_to "Mi perfil", user_show_session_path, class:"button is-link" %> 
+            <% end %>
           <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
           <% end %>
         </div>
@@ -147,7 +149,7 @@ Carretes
                 <% break %>
                 <% end %>
             <% end %>
-            <% if apuesta == 0  %>
+            <% if apuesta == 0 and Date.today <= party.fecha %>
             <%= link_to "Apostar", party_bet_path(party.id), class: "button is-success"%>
             <% end %>
             </p>
