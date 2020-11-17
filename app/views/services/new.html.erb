@@ -84,11 +84,11 @@
             </div>
             <div class="field"> 
                 <%=form.label :cap_max, 'Capacidad máxima'%></br>
-                <%=form.text_field :cap_max%>
+                <%=form.number_field :cap_max%>
             </div>
             <div class="field"> 
                 <%=form.label :precio, 'Precio'%></br>
-                <%=form.text_field :precio%>
+                <%=form.number_field :precio%>
             </div>
             <div class="field">
                 <%= form.hidden_field :user_id, :value => current_user.id%>
