@@ -78,13 +78,14 @@
         </br>
         <p style="text-align:center;">
         <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-warning" %> 
-        <%= link_to "ver monedero", user_show_monedero_path, class:"button is-warning" %> 
+        <%= link_to "Ver monedero", user_show_monedero_path, class:"button is-warning" %> 
         </p>
     </div>
   </div>
   <div class="column">
   </div>
 </div>
+
 <h1 class="title">
     Mis carretes
 </h1>
@@ -97,8 +98,14 @@
       <div class="card">
           <div class="card-content">
             <div class="content">
+              <% if Date.today == party.fecha %>
+              <h5 class="title has-text-info"> ES HOY </h5>
+              <% elsif Date.today < party.fecha %>
+              <h5 class="title has-text-success"> PRÓXIMO </h5>
+              <% elsif Date.today > party.fecha %>
+              <h5 class="title has-text-danger"> YA FUE </h5>
+              <% end %>
               <h3 class="title has-text-black-bis"><%= party.titulo %></h3>
-              Descripción: <%= party.descripcion %> <br/>
               <% for comuna in Comuna.all %>
                 <% if comuna.id == party.comuna_id %>
                   Comuna: <%= comuna.nombre %> <br/>
@@ -108,11 +115,15 @@
               Fecha: <%= party.fecha %> <br/>
               Capacidad: <%= party.capacidad %> <br/>
               Costos: $<%= party.costo %> <br/> <br/>
-              <% if current_user %>
+              <% if Date.today < party.fecha %>
                 <p style="text-align:center;">
                 <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
                 <%= link_to "Editar", party_edit_path(party.id), class: "button is-warning"%>
                 <%= link_to "Eliminar", party_path(party.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+                </p>
+              <% else %>
+                <p style="text-align:center;">
+                <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
                 </p>
               <% end %>
             </div>

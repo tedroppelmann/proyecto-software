@@ -70,6 +70,65 @@
       Bienvenido a DCCarrete
       </h1>
     <% end %>
-  </div>
+  
+
+<% if current_user %>
+<% if not current_user.admin %>
+
+<h1 class="title">
+    Tus carretes para hoy
+</h1>
+<div class="columns is-multiline">
+  <% cantidad = 0 %>
+  <% assistants = Assistant.all %>
+  <% parties = Party.all %>
+  <% assistants.each do |asistente| %>
+    <% if current_user.id == asistente.user_id%>
+      <% party = nil %>
+      <% parties.each do |fiesta| %>
+        <% if fiesta.id == asistente.party_id%>
+          <% party = fiesta %>
+        <% end %>
+      <% end %>
+      <% if Date.today == party.fecha%>
+        <% cantidad = 1 %>
+        <div class="column is-one-quarter">
+        <div class="card">
+            <div class="card-content">
+              <div class="content">
+                <h3 class="title has-text-black-bis"><%= party.titulo %></h3>
+                <% for comuna in Comuna.all %>
+                  <% if comuna.id == party.comuna_id %>
+                    Comuna: <%= comuna.nombre %> <br/>
+                  <% end %>
+                <% end %>
+                Dirección: <%= party.direccion %> <br/>
+                Fecha: <%= party.fecha %> <br/>
+                Capacidad: <%= party.capacidad %> <br/><br/>
+                <% if current_user %>
+                  <p style="text-align:center;">
+                  <%= link_to "Detalles", party_path(party.id), class: "button is-link"%><br/><br/>
+                  Código de ingreso:
+                  </p>
+                  <p style="text-align:center;", class="title has-text-black-bis">
+                   <%= party.code %>
+                  </p>
+                <% end %>
+              </div>
+            </div>
+        </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if cantidad != 1 %>
+    <h1 class="subtitle">No tienes carretes para hoy</h1>
+  <% end %>
+</div>
+
+<% end %>
+<% end %>
+
+</div>
 </div>
 </section>
