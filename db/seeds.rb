@@ -9,10 +9,10 @@
  
 
 ########USUARIOS############
-admin = User.create({first_name: 'admin', email: 'admin@gmail.com', password: 'administrador', password_confirmation: 'administrador', admin: true})
-droppelmann = User.create({first_name: 'Tomás', last_name: 'Droppelmann', email: 'tomas_droppelmann@gmail.com', password: 'droppelmann', password_confirmation: 'droppelmann', admin: false})
-dubost = User.create({first_name: 'Tomás', last_name: 'Dubost', email: 'tomas_dubost@gmail.com', password: 'dubost', password_confirmation: 'dubost', admin: false})
-soto = User.create({first_name: 'Tomás', last_name: 'Soto', email: 'tomas_soto@gmail.com', password: 'sotosoto', password_confirmation: 'sotosoto', admin: false})
+admin = User.create({first_name: 'admin', email: 'admin@gmail.com', password: 'administrador', password_confirmation: 'administrador', admin: true, monedero: 0})
+droppelmann = User.create({first_name: 'Tomás', last_name: 'Droppelmann', email: 'tomas_droppelmann@gmail.com', password: 'droppelmann', password_confirmation: 'droppelmann', admin: false, monedero: 0})
+dubost = User.create({first_name: 'Tomás', last_name: 'Dubost', email: 'tomas_dubost@gmail.com', password: 'dubost', password_confirmation: 'dubost', admin: false, monedero: 0})
+soto = User.create({first_name: 'Tomás', last_name: 'Soto', email: 'tomas_soto@gmail.com', password: 'sotosoto', password_confirmation: 'sotosoto', admin: false, monedero: 0})
 
 
 ###########COMUNAS###########
