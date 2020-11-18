@@ -84,6 +84,17 @@ Crear carrete
 
     <div class="field is-horizontal">
       <div class="field-label is-normal">
+        <label class="label is normal">Código</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+            <%=form.text_field :code, class:"input", placeholder: "Escribe un código secreto para los asistentes de tu carrete", required:true%>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
         <label class="label">Descripción</label>
       </div>
       <div class="field-body">
@@ -151,26 +162,6 @@ Crear carrete
 
     <div class="field is-horizontal">
       <div class="field-label is-normal">
-        <label class="label">Costo total</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-expanded">
-          <div class="field has-addons">
-            <div class="control">
-              <div class="button is-static">
-                $
-              </div>
-            </div>
-            <div class="control is-expanded">
-              <%=form.number_field :costo, class:"input", required:true %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label is-normal">
         <label class="label">Servicios</label>
       </div>
       <div class="field-body">
@@ -184,6 +175,26 @@ Crear carrete
                 </div>
               <% end %>
             <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Costo total</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <div class="field has-addons">
+            <div class="control">
+              <div class="button is-static">
+                $
+              </div>
+            </div>
+            <div class="control is-expanded">
+              <%=form.number_field :costo, class:"input", placeholder: "Considera los costos de los servicios incluidos", required:true %>
+            </div>
           </div>
         </div>
       </div>

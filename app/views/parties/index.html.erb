@@ -67,20 +67,19 @@
 
 <% if not current_user.admin%>
 <h1 class="title">
-Mis carretes
+Mis próximos carretes
 </h1>
 
 <div class="columns is-multiline">
   <% cantidad = 0 %>
   <% @parties.each do |party| %>
-    <% if party.user_id == current_user.id %>
+    <% if party.user_id == current_user.id and Date.today < party.fecha %>
       <% cantidad = 1 %>
     <div class="column is-one-quarter">
       <div class="card">
           <div class="card-content">
             <div class="content">
               <h3 class="title has-text-black-bis"><%= party.titulo %></h3>
-              Descripción: <%= party.descripcion %> <br/>
               <% for comuna in Comuna.all %>
                 <% if comuna.id == party.comuna_id %>
                   Comuna: <%= comuna.nombre %> <br/>
@@ -117,40 +116,48 @@ Carretes
 
 <div class="columns is-multiline">
   <% @parties.each do |party| %>
-  <% if party.user_id != current_user.id %>
+  <% if party.user_id != current_user.id and Date.today <= party.fecha %>
   <div class="column is-one-quarter">
     <div class="card">
         <div class="card-content">
           <div class="content">
+            <% if Date.today == party.fecha %>
+              <h5 class="title has-text-info"> ES HOY </h5>
+            <% elsif Date.today < party.fecha %>
+              <h5 class="title has-text-success"> PRÓXIMO </h5>
+            <% elsif Date.today > party.fecha %>
+              <h5 class="title has-text-danger"> YA FUE </h5>
+            <% end %>
             <h3 class="title has-text-black-bis"> <%= party.titulo %></h3>
-            Descripción: <%= party.descripcion %> <br/>
             <% for comuna in Comuna.all %>
               <% if comuna.id == party.comuna_id %>
                 Comuna: <%= comuna.nombre %> <br/>
               <% end %>
             <% end %>
             Dirección: <%= party.direccion %> <br/>
-            Capacidad: <%= party.capacidad %> <br/>
-            Costos: $<%= party.costo %> <br/> <br/>
-            <% if current_user.admin %>
+            Fecha: <%= party.fecha %> <br/>
+            Capacidad: <%= party.capacidad %> <br/> <br/>
+            <% if current_user.admin and Date.today < party.fecha%>
                 <p style="text-align:center;">
               <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
               <%= link_to "Editar", party_edit_path(party.id), class: "button is-warning"%>
               <%= link_to "Eliminar", party_path(party.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
               </p>
-            <% elsif not current_user.admin %>
+            <% elsif not current_user.admin or Date.today >= party.fecha%>
             <p style="text-align:center;">
             <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
             <% apuesta = 0 %>
             <% Assistant.all.each do |carrete| %>
-              <% if carrete.user_id == current_user.id and carrete.party_id == party.id %>
-                <%= link_to "Volver a apostar", party_edit_bet_path(party.id), class: "button is-success"%>
+              <% if carrete.user_id == current_user.id and carrete.party_id == party.id%>
+                <% if Date.today < party.fecha %>
+                  <%= link_to "Volver a apostar", party_edit_bet_path(party.id), class: "button is-success"%>
+                <% end %>
                 <% apuesta = 1 %>
                 <% break %>
                 <% end %>
             <% end %>
-            <% if apuesta == 0 and Date.today <= party.fecha %>
-            <%= link_to "Apostar", party_bet_path(party.id), class: "button is-success"%>
+            <% if apuesta == 0 and Date.today < party.fecha%>
+              <%= link_to "Apostar", party_bet_path(party.id), class: "button is-success"%>
             <% end %>
             </p>
             <% end %>
@@ -170,24 +177,24 @@ Carretes
 
 <div class="columns is-multiline">
   <% @parties.each do |party| %>
+  <% if Date.today <= party.fecha %>
   <div class="column is-one-quarter">
     <div class="card">
         <div class="card-content">
           <div class="content">
             <h3 class="title has-text-black-bis"> <%= party.titulo %></h3>
-            Descripción: <%= party.descripcion %> <br/>
             <% for comuna in Comuna.all %>
               <% if comuna.id == party.comuna_id %>
                 Comuna: <%= comuna.nombre %> <br/>
               <% end %>
             <% end %>
-            Dirección: <%= party.direccion %> <br/>
+            Fecha: <%= party.fecha %> <br/>
             Capacidad: <%= party.capacidad %> <br/>
-            Costos: $<%= party.costo %> <br/> 
           </div>
         </div>
       </div>
     </div>
+  <% end %>
   <% end %>
 </div>
 
