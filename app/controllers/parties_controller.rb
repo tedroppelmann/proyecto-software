@@ -42,6 +42,9 @@ class PartiesController < ApplicationController
         end
       end
     end
+
+    @recaudado = Assistant.where("party_id = ?", @party.id).sum('bet')
+    
   end
 
   def edit
