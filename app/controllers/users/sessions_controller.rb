@@ -9,6 +9,12 @@ module Users
       @services = Service.all
     end
 
+    def show_monedero
+    end
+
+    def cargar_monedero
+    end
+
     # GET /resource/sign_in
     # def new
     #   super

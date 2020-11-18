@@ -82,6 +82,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }
   devise_scope :user do
     get "users/sessions/show", to: "users/sessions#show", as: "user_show_session"
+    get "users/sessions/show_monedero", to: "users/sessions#show_monedero", as: "user_show_monedero"
+    get "users/sessions/cargar_monedero", to: "users/sessions#cargar_monedero", as: "user_cargar_monedero"
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'static_pages/home', to: 'static_pages#home'

@@ -112,6 +112,10 @@ Crear cuenta
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
+  <div class="field">
+    <%= f.hidden_field :monedero, :value => 0%>
+  </div>
+
   <div class="actions">
     <%= f.submit "Crear cuenta", class: "button is-success" %>
   </div>
