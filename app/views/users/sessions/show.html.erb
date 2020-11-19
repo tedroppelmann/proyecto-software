@@ -75,10 +75,11 @@
         <strong>Edad:</strong> <%= current_user.age %> </br>
         <strong>Teléfono:</strong> <%= current_user.phone_number %> </br>
         <strong>Correo electrónico:</strong> <%= current_user.email %> </br>
+        <strong>Monedero:</strong> <%= current_user.monedero %> </br>
         </br>
         <p style="text-align:center;">
         <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-warning" %> 
-        <%= link_to "Ver monedero", user_show_monedero_path, class:"button is-warning" %> 
+        <%= link_to "Cargar monedero", user_cargar_monedero_path, class:"button is-warning" %> 
         </p>
     </div>
   </div>
