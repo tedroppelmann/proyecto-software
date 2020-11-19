@@ -114,8 +114,8 @@
         <table class="table">
         <thead>
         <tr>
-          <th><abbr title="Mail">Usuario</abbr></th>
-          <th><abbr title="Monto">Monto</abbr></th>
+          <th><abbr>Usuario</abbr></th>
+          <th><abbr>Monto</abbr></th>
         </tr>
         </thead>
         <tbody>
@@ -129,8 +129,22 @@
       </table>
         </div>
     </div>
+  </div>
+<br/> 
+
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> Recaudación</h3>
+          <p style="text-align:center;", class="title has-text-black-bis">
+            $ <%= @recaudado %>
+          </p>
+        </div>
+    </div>
 </div>
- Recaudacion: <%= @recaudado%>
+<br/> 
+
+
 <% end%>
 
 </div>
