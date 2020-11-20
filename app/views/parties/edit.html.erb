@@ -63,64 +63,210 @@
 <div class="hero-body">
 <div class="container">
 
-<div class="columns">
-  <div class="column">
-    
-  </div>
-<div class="column">
+<div class="columns is-mobile is-centered">
+<div class="column is-half">
+
+
+<% if @party.costo == -1%>
+
+<h1 class="title">
+Elección de servicios
+</h1>
+
+<%  @party.costo = nil %>
+
+<%= form_with(model: @party, method: :patch, html: {class: 'box'}) do |form| %>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Servicios</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+            <% for service in Service.all %>
+              <% if service.verified and service.comuna_ids.include?(@party.comuna.id)%>
+                <div>
+                    <%= hidden_field_tag "party[service_ids][]", '' %>
+                    <%= check_box_tag "party[service_ids][]", service.id, @party.services.include?(service) %>
+                    <%= service.nombre %> ($<%= service.precio %>)
+                </div>
+              <% end %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Costo total</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <div class="field has-addons">
+            <div class="control">
+              <div class="button is-static">
+                $
+              </div>
+            </div>
+            <div class="control is-expanded">
+              <%=form.number_field :costo, class:"input", placeholder: "Considera los costos de los servicios incluidos", required:true %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="actions">
+            <%=form.submit "Crear carrete", class: "button is-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<% end %>
+
+<% else%>
+
 <h1 class="title">
 Editar carrete
 </h1>
 
 <%= form_with(model: @party, method: :patch, html: {class: 'box'}) do |form| %>
-    <div class="field"> 
-        <%=form.label :titulo, 'Título'%> <br />
-        <%=form.text_field :titulo%>
-    </div>
-    <div class="field"> 
-        <%=form.label :descripcion, 'Descripción'%><br />
-        <%=form.text_field :descripcion%>
-    </div>
-    Fecha<br>
-    <%= form.date_field :fecha, class: 'form-control' %>
-    <div class="field"> 
-    <%=form.label :direccion, 'Dirección'%><br />
-    <%=form.text_field :direccion%>
-    </div>
-    <div class="field"> 
-        <%=form.label :capacidad, 'Capacidad'%><br />
-        <%=form.text_field :capacidad%>
-    </div>
-    <div class="field"> 
-        <%=form.label :costo, 'Costo'%><br />
-        <%=form.text_field :costo%>
+    
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label is normal">Título</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+            <%=form.text_field :titulo, class:"input", placeholder: "Ponle nombre a tu carrete", required:true%>
+        </div>
+      </div>
     </div>
 
-    <div class="field">
-      <%=form.label :service_ids, "Servicios"%><br />
-      <% for service in Service.all %>
-        <% if service.verified%>
-          <div>
-              <%= hidden_field_tag "party[service_ids][]", '' %>
-              <%= check_box_tag "party[service_ids][]", service.id, @party.services.include?(service) %>
-              <%= service.nombre %> ($<%= service.precio %>)
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label is normal">Código</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+            <%=form.text_field :code, class:"input", placeholder: "Escribe un código secreto para los asistentes de tu carrete", required:true%>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Descripción</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+          <div class="control"> 
+            <%=form.text_area :descripcion, class:"textarea", placeholder: "Cuenta sobre tu carrete", required:true%>
           </div>
-        <% end %>
-      <% end %>
+        </div>
+      </div>
     </div>
 
-    <div class="action"> 
-        <%=form.submit "Actualizar", class:"button is-success" %>
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Fecha</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+          <div class="control"> 
+            <%=form.date_field :fecha, class:"input", required:true%>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Dirección</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+          <div class="control"> 
+            <%=form.text_field :direccion, class:"input", placeholder: "Avenida Siempreviva 742", required:true%>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Capacidad</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+          <div class="control"> 
+            <%=form.number_field :capacidad, class:"input", placeholder: "100, 200... Lo que querai", required:true%>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Servicios</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+            <% for service in Service.all %>
+              <% if service.verified%>
+                <div>
+                    <%= hidden_field_tag "party[service_ids][]", '' %>
+                    <%= check_box_tag "party[service_ids][]", service.id, @party.services.include?(service) %>
+                    <%= service.nombre %> ($<%= service.precio %>)
+                </div>
+              <% end %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Costo total</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <div class="field has-addons">
+            <div class="control">
+              <div class="button is-static">
+                $
+              </div>
+            </div>
+            <div class="control is-expanded">
+              <%=form.number_field :costo, class:"input", placeholder: "Considera los costos de los servicios incluidos", required:true %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="actions">
+            <%=form.submit "Actualizar", class: "button is-success" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<% end %>
 <% end %>
 
-
-</div>
-  <div class="column">
-    
-  </div>
-
-</div>
 
 
 </div>

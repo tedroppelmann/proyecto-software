@@ -20,7 +20,7 @@ class PartiesController < ApplicationController
     @party = Party.create(@parties_param)
 
     if @party.save
-      redirect_to parties_index_path
+      redirect_to party_edit_path(@party.id)
     else
       redirect_to parties_new_path, notice: 'Error al crear tu party'
     end
