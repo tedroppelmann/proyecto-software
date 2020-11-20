@@ -4,6 +4,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # para ver lo de las apuestas
+  has_one_attached :image
   has_many :assistants, dependent: :destroy
   has_many :partys, through: :assistants
 

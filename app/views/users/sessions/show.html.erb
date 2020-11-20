@@ -76,6 +76,11 @@
         <strong>Teléfono:</strong> <%= current_user.phone_number %> </br>
         <strong>Correo electrónico:</strong> <%= current_user.email %> </br>
         <strong>Monedero:</strong> <%= current_user.monedero %> </br>
+        <%if not current_user.image.nil? %>
+          <strong>Foto de perfil:</strong> <br><%= image_tag("Default/default.jpg", style: "width:200px; height:auto") %> </br> 
+        <% else %>
+          <strong>Foto de perfil:</strong> <br><%= image_tag(current_user.image, style: "width:200px; height:auto") %> </br> 
+        <% end %>
         </br>
         <p style="text-align:center;">
         <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-warning" %> 
