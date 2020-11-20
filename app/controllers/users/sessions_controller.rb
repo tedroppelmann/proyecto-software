@@ -15,6 +15,13 @@ module Users
     def cargar_monedero
     end
 
+    def patch_monedero
+      current_user.monedero = current_user.monedero + params[:amount].to_i
+      if current_user.save 
+        redirect_to user_show_session_path
+      end
+    end
+
     # GET /resource/sign_in
     # def new
     #   super
