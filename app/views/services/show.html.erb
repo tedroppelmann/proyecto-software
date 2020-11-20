@@ -69,22 +69,36 @@
 
 <div class="columns">
   <div class="column">
+
     <div class="card">
-    <div class="card-content">
-        <div class="content">
-        <h3 class="title has-text-black-bis"> <%= @service.nombre %></h3>
-        Descripción: <%= @service.descripcion %> <br/>
-        Capacidad máxima: <%= @service.cap_max %> <br/>
-        Precio: $<%= @service.precio %> <br/> <br/>
-        </div>
+      <div class="card-content">
+          <div class="content">
+          <h3 class="title has-text-black-bis"> <%= @service.nombre %></h3>
+          Descripción: <%= @service.descripcion %> <br/>
+          Capacidad máxima: <%= @service.cap_max %> <br/>
+          Precio: $<%= @service.precio %> <br/> <br/>
+          </div>
+      </div>
     </div>
-</div>
+    <br/>
+    <div class="card">
+      <div class="card-content">
+          <div class="content">
+          <h3 class="title has-text-black-bis"> Comunas de operación </h3>
+          <% for comuna in Comuna.all %>
+            <% if @service.comuna_ids.include? comuna.id %>
+              <div>
+                  <%= comuna.nombre %>
+              </div>
+            <% end %>
+          <% end %>
+          </div>
+      </div>
   </div>
+</div>
 
   <div class="column">
-
-
-</div>
+  </div>
   <div class="column">
   </div>
 

@@ -16,7 +16,7 @@ class PartiesController < ApplicationController
   end
 
   def create
-    @parties_param = params.require(:party).permit(:titulo, :descripcion, :fecha, :direccion, :capacidad, :costo, :user_id, :comuna_id, { service_ids: [] }, :code)
+    @parties_param = params.require(:party).permit(:titulo, :descripcion, :fecha, :direccion, :capacidad, :costo, :user_id, :comuna_id, :code, { service_ids: [] })
     @party = Party.create(@parties_param)
 
     if @party.save
@@ -53,7 +53,7 @@ class PartiesController < ApplicationController
 
   def update
     @party = Party.find(params[:id])
-    @parties_param = params.require(:party).permit(:titulo, :descripcion,:fecha, :direccion, :capacidad, :costo, { service_ids: [] })
+    @parties_param = params.require(:party).permit(:titulo, :descripcion, :fecha, :direccion, :capacidad, :costo, :user_id, :comuna_id, :code, { service_ids: [] })
 
     if @party.update(@parties_param)
       redirect_to parties_index_path

@@ -107,6 +107,24 @@
 
           <div class="field is-horizontal">
             <div class="field-label is-normal">
+              <label class="label">Comunas</label>
+            </div>
+            <div class="field-body">
+              <div class="field"> 
+                <div class="control"> 
+                  <% for comuna in Comuna.all %>
+                    <div>
+                        <%= check_box_tag "service[comuna_ids][]", comuna.id, @service.comunas.include?(comuna) %>
+                        <%= comuna.nombre %> 
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
               <label class="label">Precio</label>
             </div>
             <div class="field-body">
@@ -134,7 +152,7 @@
             </div>
             <div class="field-body">
               <div class="field">
-                <div class="actions">
+                <div class="action">
                   <%=form.submit "Crear servicio", class: "button is-success" %>
                 </div>
               </div>
