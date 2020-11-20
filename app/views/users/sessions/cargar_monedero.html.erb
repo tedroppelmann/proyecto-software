@@ -1,1 +1,12 @@
-en proceso F
+
+
+
+
+<%= form_with(url: user_patch_monedero_path, method: "patch") do %>
+  <%= label_tag(:amount, "Monto a cargar en mi monedero:") %>
+  <%= number_field_tag(:amount) %>
+  <%= submit_tag("Cargar Dinero") %>
+<% end %>
+
+<br>
+<%= link_to "Volver a mi perfil", user_show_session_path, class:"button is-link" %> 
