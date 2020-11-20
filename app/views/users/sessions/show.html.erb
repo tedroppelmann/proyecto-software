@@ -194,6 +194,10 @@ Mis comentarios
             <%= link_to "Eliminar", comentario_path(comentario.id), method: :delete, class: "delete", data: { confirm: "¿Estás seguro?" }%>
           </div>
           <div class="message-body">
+            <% for i in (1..comentario.valoracion)%>
+              &#11088;
+            <% end %>
+            </br>
             <%= comentario.contenido %> </br>
             <%= comentario.created_at.strftime("%d-%m-%Y")%></br>
           </div>
