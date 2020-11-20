@@ -76,7 +76,19 @@
           <h3 class="title has-text-black-bis"> <%= @service.nombre %></h3>
           Descripción: <%= @service.descripcion %> <br/>
           Capacidad máxima: <%= @service.cap_max %> <br/>
-          Precio: $<%= @service.precio %> <br/> <br/>
+          Precio: $<%= @service.precio %> <br/>
+          <% numero = 0 %>
+          <% valoracion = 0 %>  
+          <% @c_servicio.each do |comentario| %>
+            <% numero += 1 %>
+            <% valoracion += comentario.valoracion %>
+          <% @service.valoracion = (valoracion/numero) %>  
+          <% end %>
+          Valoración promedio:
+          <% for i in (1..@service.valoracion)%>
+              &#11088;
+            <% end %>
+            </br>
           </div>
       </div>
     </div>
@@ -128,7 +140,11 @@
 
         <% end %>
       </div>
-          <div class="message-body">
+          <div class="message-body">  
+            <% for i in (1..comentario.valoracion)%>
+              &#11088;
+            <% end %>
+            </br>
             <%= comentario.contenido %> </br>
             <%= comentario.created_at.strftime("%d-%m-%Y")%></br>
           </div>
