@@ -69,6 +69,7 @@
 Crear carrete
 </h1>
 
+
 <%= form_with(model: @party, method: :post, html: {class: 'box'}) do |form| %>
 
     <div class="field is-horizontal">
@@ -159,49 +160,13 @@ Crear carrete
         </div>
       </div>
     </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label is-normal">
-        <label class="label">Servicios</label>
-      </div>
-      <div class="field-body">
-        <div class="field"> 
-          <div class="control"> 
-            <% for service in Service.all %>
-              <% if service.verified%>
-                <div>
-                    <%= check_box_tag "party[service_ids][]", service.id, @party.services.include?(service) %>
-                    <%= service.nombre %> ($<%= service.precio %>)
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="field is-horizontal">
-      <div class="field-label is-normal">
-        <label class="label">Costo total</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-expanded">
-          <div class="field has-addons">
-            <div class="control">
-              <div class="button is-static">
-                $
-              </div>
-            </div>
-            <div class="control is-expanded">
-              <%=form.number_field :costo, class:"input", placeholder: "Considera los costos de los servicios incluidos", required:true %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     
     <div class="field">
         <%= form.hidden_field :user_id, :value => current_user.id%>
+    </div>
+
+    <div class="field">
+        <%= form.hidden_field :costo, :value => -1%>
     </div>
 
     <div class="field is-horizontal">
@@ -210,13 +175,14 @@ Crear carrete
       <div class="field-body">
         <div class="field">
           <div class="actions">
-            <%=form.submit "Crear carrete", class: "button is-success" %>
+            <%=form.submit "Siguiente paso", class: "button is-success" %>
           </div>
         </div>
       </div>
     </div>
     
 <% end %>
+
 
 </div>
   

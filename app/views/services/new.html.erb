@@ -63,47 +63,106 @@
 <div class="hero-body">
   <div class="container">
 
-<div class="columns">
-  <div class="column">
+<div class="columns is-mobile is-centered">
+<div class="column is-half">
+
+    <h1 class="title">
+    Crear servicio
+    </h1>
+
+      <%= form_with(model: @service, method: :post, html: {class: 'box'}) do |form| %>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label is normal">Nombre</label>
+            </div>
+            <div class="field-body">
+              <div class="field"> 
+                  <%=form.text_field :nombre, class:"input", placeholder: "Ponle nombre a tu servicio", required:true%>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label is normal">Descripción</label>
+            </div>
+            <div class="field-body">
+              <div class="field"> 
+                  <%=form.text_field :descripcion, class:"input", placeholder: "Describe que hace tu servicio", required:true%>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label is normal">Capacidad</label>
+            </div>
+            <div class="field-body">
+              <div class="field"> 
+                  <%=form.number_field :cap_max, class:"input", placeholder: "Ingresa la capacidad máxima del servicio", required:true%>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Comunas</label>
+            </div>
+            <div class="field-body">
+              <div class="field"> 
+                <div class="control"> 
+                  <% for comuna in Comuna.all %>
+                    <div>
+                        <%= check_box_tag "service[comuna_ids][]", comuna.id, @service.comunas.include?(comuna) %>
+                        <%= comuna.nombre %> 
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">Precio</label>
+            </div>
+            <div class="field-body">
+              <div class="field is-expanded">
+                <div class="field has-addons">
+                  <div class="control">
+                    <div class="button is-static">
+                      $
+                    </div>
+                  </div>
+                  <div class="control is-expanded">
+                    <%=form.number_field :precio, class:"input", placeholder: "Ingresa el valor del servicio", required:true %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+              <%= form.hidden_field :user_id, :value => current_user.id%>
+          </div> 
+
+          <div class="field is-horizontal">
+            <div class="field-label">
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="action">
+                  <%=form.submit "Crear servicio", class: "button is-success" %>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+      <% end %>
+
     
-  </div>
-
-  <div class="column">
-      <h1 class="title">
-      Crear servicio
-      </h1>
-
-        <%= form_with(model: @service, method: :post, html: {class: 'box'}) do |form| %>
-            <div class="field"> 
-                <%=form.label :nombre, 'Nombre'%></br>
-                <%=form.text_field :nombre%>
-            </div>
-            <div class="field"> 
-                <%=form.label :descripcion, 'Descripción'%></br>
-                <%=form.text_field :descripcion%>
-            </div>
-            <div class="field"> 
-                <%=form.label :cap_max, 'Capacidad máxima'%></br>
-                <%=form.number_field :cap_max%>
-            </div>
-            <div class="field"> 
-                <%=form.label :precio, 'Precio'%></br>
-                <%=form.number_field :precio%>
-            </div>
-            <div class="field">
-                <%= form.hidden_field :user_id, :value => current_user.id%>
-            </div> 
-            
-            <div class="action"> 
-                <%=form.submit "Crear servicio", class: "button is-success"%>
-            </div>
-        <% end %>
-
 </div>
-  <div class="column">
-    
-  </div>
-
 </div>
 
 
