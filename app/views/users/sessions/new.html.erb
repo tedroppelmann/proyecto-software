@@ -63,45 +63,52 @@
 <div class="hero-body">
   <div class="container">
 
-<div class="columns">
-  <div class="column">
-    
-  </div>
+<div class="columns is-mobile is-centered">
+<div class="column is-half">
 
-  <div class="column">
       <h1 class="title">
       Iniciar sesión
       </h1>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'box'}) do |f| %>
-        <div class="field">
-          <%= f.label :email, 'Correo electrónico' %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-        </div>
 
-        <div class="field">
-          <%= f.label :password, 'Contraseña' %><br />
-          <%= f.password_field :password, autocomplete: "current-password" %>
-        </div>
-
-        <% if devise_mapping.rememberable? %>
-          <div class="field">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me, 'Recordar' %>
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label is normal">Email</label>
           </div>
-        <% end %>
-
-        <div class="actions">
-          <%= f.submit "Ingresar", class: "button is-success" %>
+          <div class="field-body">
+            <div class="field"> 
+                <%= f.text_field :email, class:"input", autofocus: true, required:true%>
+            </div>
+          </div>
         </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label is normal">Contraseña</label>
+          </div>
+          <div class="field-body">
+            <div class="field"> 
+                <%= f.password_field :password, class:"input", autofocus: true, required:true%>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-horizontal">
+          <div class="field-label">
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="actions">
+                <%=f.submit "Ingresar", class: "button is-success" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
       <% end %>
 
-      </div>
-  <div class="column">
-    
-  </div>
 
-</div>
 
 
 </div>
