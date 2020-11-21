@@ -83,7 +83,58 @@
 <% if not current_user.admin %>
 
 <h1 class="title">
-    <p>Tus carretes para hoy &#127881;</p>
+    <p>Tus propios carretes para hoy &#127881;</p>
+</h1>
+<div class="columns is-multiline">
+  <% cantidad = 0 %>
+  <% current_user.partys.each do |party| %>
+    <% if party.user_id == current_user.id and Date.today == party.fecha%>
+      <% cantidad = 1 %>
+    <div class="column is-one-quarter">
+      <div class="card">
+          <div class="card-content">
+            <div class="content">
+              <% if party.hacer%>
+              <h5 class="title has-text-success"> SI SE CUMPLIÓ LA RECAUDACIÓN </h5>
+              <% elsif not party.hacer %>
+              <h5 class="title has-text-danger"> NO SE CUMPLIÓ LA RECAUDACIÓN  </h5>
+              <% end %>
+              <h3 class="title has-text-black-bis"><%= party.titulo %></h3>
+              <% for comuna in Comuna.all %>
+                <% if comuna.id == party.comuna_id %>
+                  Comuna: <%= comuna.nombre %> <br/>
+                <% end %>
+              <% end %>
+              Dirección: <%= party.direccion %> <br/>
+              Fecha: <%= party.fecha %> <br/>
+              Capacidad: <%= party.capacidad %> <br/>
+              Costos: $<%= party.costo %> <br/> <br/>
+              <% if Date.today < party.fecha %>
+                <p style="text-align:center;">
+                <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
+                <%= link_to "Editar", party_edit_path(party.id), class: "button is-warning"%>
+                <%= link_to "Eliminar", party_path(party.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+                </p>
+              <% else %>
+                <p style="text-align:center;">
+                <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% if cantidad != 1 %>
+    <h1 class="subtitle">No tienes carretes aún.</h1>
+  <% end %>
+</div>
+
+
+
+<h1 class="title">
+    <p>Tus carretes inscritos para hoy &#127881;</p>
 </h1>
 <div class="columns is-multiline">
   <% cantidad = 0 %>
@@ -97,7 +148,7 @@
           <% party = fiesta %>
         <% end %>
       <% end %>
-      <% if Date.today == party.fecha%>
+      <% if Date.today == party.fecha and party.hacer%>
         <% cantidad = 1 %>
         <div class="column is-one-quarter">
         <div class="card">
@@ -132,7 +183,10 @@
     <h1 class="subtitle">No tienes carretes para hoy</h1>
   <% end %>
 </div>
+
 <% end %>
+
+
 <% else %>
   <p style="text-align:center;">
     <span style='font-size:100px;'>&#127882;</span>
