@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PartiesController < ApplicationController
+
   def index
     @parties = Party.all
   end
@@ -16,7 +17,7 @@ class PartiesController < ApplicationController
   end
 
   def create
-    @parties_param = params.require(:party).permit(:titulo, :descripcion, :fecha, :direccion, :capacidad, :costo, :user_id, :comuna_id, :code, { service_ids: [] })
+    @parties_param = params.require(:party).permit(:titulo, :descripcion, :fecha, :direccion, :capacidad, :costo, :user_id, :comuna_id, :code, { service_ids: [] }, :revisado, :hacer)
     @party = Party.create(@parties_param)
 
     if @party.save
@@ -76,37 +77,54 @@ class PartiesController < ApplicationController
   def create_bet
     @party = Party.find(params[:id])
     @assistant_param = params.require(:assistant).permit(:bet, :user_id, :party_id)
-    @todos_los_asistentes = Assistant.all
-    @mis_asistentes = []
-    @menor = nil
+    puts " ######################### dinero actual #{current_user.monedero} #####################"
+    puts " ######################### cantidad que aposto #{@assistant_param[:bet]} #####################"
+    if current_user.monedero >= @assistant_param[:bet].to_i
+      @todos_los_asistentes = Assistant.all
+      @mis_asistentes = []
+      @menor = nil
 
-    @todos_los_asistentes.each do |relacion|
-      @mis_asistentes.append(relacion) if relacion.party_id == @party.id
-    end
-    # caso en que hay menos asistentes que el limite de cantidad
-    if @mis_asistentes.length < @party.capacidad
-      @assistant = Assistant.create(@assistant_param)
-      if @assistant.save
-        redirect_to parties_index_path
-      else
-        redirect_to party_bet_path(@party.id), notice: 'Error al hacer la apuesta'
+      @todos_los_asistentes.each do |relacion|
+        @mis_asistentes.append(relacion) if relacion.party_id == @party.id
       end
-    else
-
-      @mis_asistentes.each do |relacion|
-        if @menor.nil?
-          @menor = relacion
+      # caso en que hay menos asistentes que el limite de cantidad
+      if @mis_asistentes.length < @party.capacidad
+        @assistant = Assistant.create(@assistant_param)
+        current_user.monedero = current_user.monedero - @assistant_param[:bet].to_i
+        if @assistant.save and current_user.save 
+          redirect_to parties_index_path
         else
-          @menor = relacion if @menor.bet > relacion.bet
+          redirect_to party_bet_path(@party.id), notice: 'Error al hacer la apuesta'
+        end
+      else
+        # caso cuando ya se alcanza la capacidad maxima del carrete
+        @mis_asistentes.each do |relacion|
+          if @menor.nil?
+            @menor = relacion
+          else
+            @menor = relacion if @menor.bet > relacion.bet
+          end
+        end
+        # en esta parte se compara si la apuesta que se acaba de hacer es mayor que la menor apuesta
+        if @menor.bet < @assistant_param[:bet].to_i
+          @devolver = nil
+          User.all.each do |buscar|
+            if buscar.id == @menor.user_id
+              @devolver = buscar
+            end
+          end
+          @devolver.monedero = @devolver.monedero + @menor.bet
+          current_user.monedero = current_user.monedero - @assistant_param[:bet].to_i
+          if @menor.update(@assistant_param) and current_user.save and @devolver.save
+            redirect_to parties_index_path
+          end
+        else
+          redirect_to party_bet_path(@party.id), notice: 'Caso que aun no veo'
         end
       end
-
-      if @menor.update(@assistant_param)
-        redirect_to parties_index_path
-      else
-        redirect_to party_bet_path(@party.id), notice: 'Caso que aun no veo'
-      end
-
+    else
+      redirect_to party_bet_path(@party.id), notice: 'NO TIENES EL DINERO SUFICIENTE'
+      puts '############# NO TIENES EL DINERO SUFICIENTE ##################'
     end
   end
 
@@ -127,10 +145,21 @@ class PartiesController < ApplicationController
       @assistant = comparar if (comparar.user_id == current_user.id) && (comparar.party_id == @party.id)
     end
 
-    if @assistant.update(@assistant_param)
-      redirect_to parties_index_path
+    if @assistant_param[:bet].to_i > @assistant.bet
+      diferencia = @assistant_param[:bet].to_i - @assistant.bet
+      current_user.monedero = current_user.monedero - diferencia.to_i
+      if@assistant.update(@assistant_param) and current_user.save 
+        redirect_to parties_index_path
+      end
+    elsif @assistant_param[:bet].to_i < @assistant.bet
+      diferencia = @assistant.bet - @assistant_param[:bet].to_i 
+      current_user.monedero = current_user.monedero + diferencia.to_i
+      if@assistant.update(@assistant_param) and current_user.save 
+        redirect_to parties_index_path
+      end
     else
       redirect_to party_edit_path(@party.id), notice: 'Error al editar la apuesta'
     end
   end
+
 end
