@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_20_133633) do
+ActiveRecord::Schema.define(version: 2020_11_21_033619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(version: 2020_11_20_133633) do
     t.bigint "comuna_id"
     t.date "fecha"
     t.string "code"
+    t.boolean "revisado"
+    t.boolean "hacer"
     t.index ["comuna_id"], name: "index_parties_on_comuna_id"
     t.index ["user_id"], name: "index_parties_on_user_id"
   end
