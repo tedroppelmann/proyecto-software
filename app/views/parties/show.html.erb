@@ -84,7 +84,9 @@
         Dirección: <%= @party.direccion %> <br/>
         Fecha: <%= @party.fecha %> <br/>
         Capacidad: <%= @party.capacidad %> <br/>
+        <% if @party.user_id == current_user.id or current_user.admin%>
         Costos: $<%= @party.costo %> <br/> 
+        <% end %>
         </div>
     </div>
 </div>
