@@ -76,8 +76,25 @@ Cargar monedero
 <%= form_with(url: user_patch_monedero_path, method: "patch", html: {class: 'box'}) do |form| %>
 
   <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Monedero</label>
+    </div>
+    <div class="field-body">
+      <div class="field is-expanded">
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <div class="input" disabled>
+            <%= current_user.monedero%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
       <div class="field-label is-normal">
-        <label class="label">Costo total</label>
+        <label class="label">Monto</label>
       </div>
       <div class="field-body">
         <div class="field is-expanded">
