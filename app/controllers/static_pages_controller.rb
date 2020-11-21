@@ -20,7 +20,7 @@ class StaticPagesController < ApplicationController
           @costos = @costos + servicio.precio
         end
         puts "----- EL COSTO DEL CARRETE #{carrete.id} es de #{@costos}------------"
-        if @recaudado >= @costos #se realiza el pago hacia los provedores de los ser y el resto al anfitrion del carrete
+        if @recaudado >= @costos and @recaudado >= carrete.costo #se realiza el pago hacia los provedores de los ser y el resto al anfitrion del carrete
           carrete.hacer = true
           carrete.save
           puts "----- EL CARRETE #{carrete.id} SE REALIZA------------"

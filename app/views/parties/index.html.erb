@@ -111,12 +111,13 @@ Mis próximos carretes
 
 
 <h1 class="title">
-Carretes
+Todos los carretes disponibles
 </h1>
 
 <div class="columns is-multiline">
   <% @parties.each do |party| %>
   <% if party.user_id != current_user.id and Date.today <= party.fecha %>
+  <% cantidad = 1 %>
   <div class="column is-one-quarter">
     <div class="card">
         <div class="card-content">
@@ -125,8 +126,6 @@ Carretes
               <h5 class="title has-text-info"> ES HOY </h5>
             <% elsif Date.today < party.fecha %>
               <h5 class="title has-text-success"> PRÓXIMO </h5>
-            <% elsif Date.today > party.fecha %>
-              <h5 class="title has-text-danger"> YA FUE </h5>
             <% end %>
             <h3 class="title has-text-black-bis"> <%= party.titulo %></h3>
             <% for comuna in Comuna.all %>
@@ -166,6 +165,9 @@ Carretes
       </div>
     </div>
     <% end %>
+  <% end %>
+  <% if cantidad != 1 %>
+    <h1 class="subtitle"> No tienes carretes disponibles.</h1>
   <% end %>
 </div>
 
