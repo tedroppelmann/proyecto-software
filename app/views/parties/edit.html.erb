@@ -219,7 +219,7 @@ Editar carrete
       <div class="field-body">
         <div class="field"> 
             <% for service in Service.all %>
-              <% if service.verified%>
+              <% if service.verified and service.comuna_ids.include?(@party.comuna.id)%>
                 <div>
                     <%= hidden_field_tag "party[service_ids][]", '' %>
                     <%= check_box_tag "party[service_ids][]", service.id, @party.services.include?(service) %>
