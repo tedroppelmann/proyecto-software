@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PartiesController < ApplicationController
-
   def index
     @parties = Party.all
   end
@@ -44,8 +43,7 @@ class PartiesController < ApplicationController
       end
     end
 
-    @recaudado = Assistant.where("party_id = ?", @party.id).sum('bet')
-    
+    @recaudado = Assistant.where('party_id = ?', @party.id).sum('bet')
   end
 
   def edit
@@ -77,8 +75,8 @@ class PartiesController < ApplicationController
   def create_bet
     @party = Party.find(params[:id])
     @assistant_param = params.require(:assistant).permit(:bet, :user_id, :party_id)
-    puts " ######################### dinero actual #{current_user.monedero} #####################"
-    puts " ######################### cantidad que aposto #{@assistant_param[:bet]} #####################"
+    Rails.logger.debug " ######################### dinero actual #{current_user.monedero} #####################"
+    Rails.logger.debug " ######################### cantidad que aposto #{@assistant_param[:bet]} #####################"
     if current_user.monedero >= @assistant_param[:bet].to_i
       @todos_los_asistentes = Assistant.all
       @mis_asistentes = []
@@ -91,7 +89,7 @@ class PartiesController < ApplicationController
       if @mis_asistentes.length < @party.capacidad
         @assistant = Assistant.create(@assistant_param)
         current_user.monedero = current_user.monedero - @assistant_param[:bet].to_i
-        if @assistant.save and current_user.save 
+        if @assistant.save && current_user.save
           redirect_to parties_index_path
         else
           redirect_to party_bet_path(@party.id), notice: 'Error al hacer la apuesta'
@@ -109,22 +107,18 @@ class PartiesController < ApplicationController
         if @menor.bet < @assistant_param[:bet].to_i
           @devolver = nil
           User.all.each do |buscar|
-            if buscar.id == @menor.user_id
-              @devolver = buscar
-            end
+            @devolver = buscar if buscar.id == @menor.user_id
           end
           @devolver.monedero = @devolver.monedero + @menor.bet
           current_user.monedero = current_user.monedero - @assistant_param[:bet].to_i
-          if @menor.update(@assistant_param) and current_user.save and @devolver.save
-            redirect_to parties_index_path
-          end
+          redirect_to parties_index_path if @menor.update(@assistant_param) && current_user.save && @devolver.save
         else
           redirect_to party_bet_path(@party.id), notice: 'Caso que aun no veo'
         end
       end
     else
       redirect_to party_bet_path(@party.id), notice: 'NO TIENES EL DINERO SUFICIENTE'
-      puts '############# NO TIENES EL DINERO SUFICIENTE ##################'
+      Rails.logger.debug '############# NO TIENES EL DINERO SUFICIENTE ##################'
     end
   end
 
@@ -148,18 +142,13 @@ class PartiesController < ApplicationController
     if @assistant_param[:bet].to_i > @assistant.bet
       diferencia = @assistant_param[:bet].to_i - @assistant.bet
       current_user.monedero = current_user.monedero - diferencia.to_i
-      if@assistant.update(@assistant_param) and current_user.save 
-        redirect_to parties_index_path
-      end
+      redirect_to parties_index_path if @assistant.update(@assistant_param) && current_user.save
     elsif @assistant_param[:bet].to_i < @assistant.bet
-      diferencia = @assistant.bet - @assistant_param[:bet].to_i 
+      diferencia = @assistant.bet - @assistant_param[:bet].to_i
       current_user.monedero = current_user.monedero + diferencia.to_i
-      if@assistant.update(@assistant_param) and current_user.save 
-        redirect_to parties_index_path
-      end
+      redirect_to parties_index_path if @assistant.update(@assistant_param) && current_user.save
     else
       redirect_to party_edit_path(@party.id), notice: 'Error al editar la apuesta'
     end
   end
-
 end
