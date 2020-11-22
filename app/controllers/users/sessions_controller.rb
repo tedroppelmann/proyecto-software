@@ -4,6 +4,20 @@ module Users
   class SessionsController < Devise::SessionsController
     # before_action :configure_sign_in_params, only: [:create]
 
+    def show
+      @parties = Party.all
+      @services = Service.all
+    end
+
+    def show_monedero; end
+
+    def cargar_monedero; end
+
+    def patch_monedero
+      current_user.monedero = current_user.monedero + params[:amount].to_i
+      redirect_to user_show_session_path if current_user.save
+    end
+
     # GET /resource/sign_in
     # def new
     #   super

@@ -47,7 +47,9 @@
           <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
           <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
           <% else %> 
-          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+            <% if not current_user.admin %>
+            <%= link_to "Mi perfil", user_show_session_path, class:"button is-link" %> 
+            <% end %>
           <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
           <% end %>
         </div>
@@ -61,20 +63,43 @@
 <div class="hero-body">
   <div class="container">
 
-<div class="columns">
-  <div class="column">
-    
-  </div>
+<div class="columns is-mobile is-centered">
+<div class="column is-half">
 
-  <div class="column">
-      <h1 class="title">
-      Crear comentario
-      </h1>
+<h1 class="title">
+Crear comentario
+</h1>
 
 <%= form_with(model: @comentario, method: :post, html: {class: 'box'}) do |form|%>
-    <div class="field">
-        <%=form.text_field :contenido, class: "textarea", placeholder: "¡Déjanos tu opinión!"%>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Comentario</label>
+      </div>
+      <div class="field-body">
+        <div class="field"> 
+          <div class="control"> 
+            <%=form.text_area :contenido, class:"textarea", placeholder: "¡Déjanos tu opinión!", required:true%>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Valoración</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-narrow">
+          <div class="control">
+            <div class="select is-fullwidth">
+              <%= form.select :valoracion, [1,2,3,4,5] %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="field">
         <%= form.hidden_field :user_id, :value => current_user.id%>
     </div>
@@ -82,18 +107,21 @@
     <div class="field">
         <%= form.hidden_field :service_id%>
     </div>
-    <div class="action">
-        <%=form.submit "Comentar", class: "button is-success"%>
+
+    <div class="field is-horizontal">
+      <div class="field-label">
+      </div>
+      <div class="field-body">
+        <div class="field">
+          <div class="actions">
+            <%=form.submit "Comentar", class: "button is-success" %>
+          </div>
+        </div>
+      </div>
     </div>
 
 <% end %>
 
-</div>
-  <div class="column">
-    
-  </div>
-
-</div>
 
 
 </div>

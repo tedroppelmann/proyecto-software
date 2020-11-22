@@ -34,7 +34,7 @@ Style/StringLiterals:
 
 Layout/LineLength:
   Enabled: true
-  Max: 150
+  Max: 200
 
 Style/Documentation:
   Enabled: true
@@ -91,7 +91,7 @@ Metrics/MethodLength:
   Max: 200
 
 Metrics/MethodLength:
-  Max: 40
+  Max: 200
 
 # Disable cyclomatic complexity which is a number of paths through a method
 Metrics/CyclomaticComplexity:
@@ -113,5 +113,15 @@ Metrics/ClassLength:
   Enabled: false
 
 Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+
+Rails/Date:
   Enabled: false
 

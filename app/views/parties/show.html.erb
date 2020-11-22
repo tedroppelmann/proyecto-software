@@ -1,4 +1,3 @@
-
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
@@ -48,7 +47,9 @@
           <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
           <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
           <% else %> 
-          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+            <% if not current_user.admin %>
+            <%= link_to "Mi perfil", user_show_session_path, class:"button is-link" %> 
+            <% end %>
           <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
           <% end %>
         </div>
@@ -81,6 +82,7 @@
           <% end %>
         <% end %>
         Dirección: <%= @party.direccion %> <br/>
+        Fecha: <%= @party.fecha %> <br/>
         Capacidad: <%= @party.capacidad %> <br/>
         Costos: $<%= @party.costo %> <br/> 
         </div>
@@ -95,7 +97,7 @@
         <% for service in Service.all %>
           <% if @party.service_ids.include? service.id %>
             <div>
-                <%= service.nombre %>
+                <%= link_to service.nombre, service_path(service.id)%> 
             </div>
           <% end %>
       <% end %>
@@ -112,8 +114,8 @@
         <table class="table">
         <thead>
         <tr>
-          <th><abbr title="Mail">Usuario</abbr></th>
-          <th><abbr title="Monto">Monto</abbr></th>
+          <th><abbr>Usuario</abbr></th>
+          <th><abbr>Monto</abbr></th>
         </tr>
         </thead>
         <tbody>
@@ -127,7 +129,47 @@
       </table>
         </div>
     </div>
+  </div>
+<br/> 
+
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> Recaudación</h3>
+          <p style="text-align:center;", class="title has-text-black-bis">
+            $ <%= @recaudado %>
+          </p>
+        </div>
+    </div>
 </div>
+<br/> 
+
+<% else%>
+<br/> 
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> Apuestas </h3>
+        <table class="table">
+        <thead>
+        <tr>
+          <th><abbr>Usuario</abbr></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @mis_asistentes.each do |asistente| %>
+            <tr>
+                <td><%= asistente[0] %></td>
+            </tr>
+        <% end %>
+    </tbody>
+      </table>
+        </div>
+    </div>
+  </div>
+<br/> 
+
+
 <% end%>
 
 </div>

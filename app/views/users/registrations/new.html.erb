@@ -47,7 +47,9 @@
           <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
           <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
           <% else %> 
-          <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-link" %> 
+            <% if not current_user.admin %>
+            <%= link_to "Mi perfil", user_show_session_path, class:"button is-link" %> 
+            <% end %>
           <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
           <% end %>
         </div>
@@ -61,65 +63,122 @@
 <div class="hero-body">
   <div class="container">
   
-<div class="columns">
-  <div class="column"> 
-  </div>
-  <div class="column">
-    <h1 class="title">
+<div class="columns is-mobile is-centered">
+<div class="column is-half">
+
+<h1 class="title">
 Crear cuenta
 </h1>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'box'}) do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
 
-  <div class="field"> 
-  <%= f.label :first_name, 'Nombre'%><br />
-  <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", required:true%>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label is normal">Nombre</label>
+    </div>
+    <div class="field-body">
+      <div class="field"> 
+          <%= f.text_field :first_name, class:"input", autofocus: true, required:true%>
+      </div>
+    </div>
   </div>
 
-  <div class="field"> 
-  <%= f.label :last_name, 'Apellido'%><br />
-  <%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", required:true %>
-  </div> 
-  
-  <div class="field"> 
-  <%= f.label :age, 'Edad'%><br />
-  <%= f.number_field :age, autofocus: true, autocomplete: "age", required:true %>
-  </div> 
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label is normal">Apellido</label>
+    </div>
+    <div class="field-body">
+      <div class="field"> 
+          <%= f.text_field :last_name, class:"input", autofocus: true, required:true%>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label is normal">Edad</label>
+    </div>
+    <div class="field-body">
+      <div class="field"> 
+          <%= f.number_field :age, class:"input", autofocus: true, required:true%>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label is normal">Email</label>
+    </div>
+    <div class="field-body">
+      <div class="field"> 
+          <%= f.text_field :email, class:"input", autofocus: true, required:true%>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label is normal">Foto</label>
+    </div>
+    <div class="field-body">
+      <div class="field"> 
+          <%= f.file_field :image, class:"file-label", required:true%>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label is normal">Teléfono</label>
+    </div>
+    <div class="field-body">
+      <div class="field"> 
+          <%= f.telephone_field :phone_number, class:"input", autofocus: true, required:true%>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label is normal">Contraseña</label>
+    </div>
+    <div class="field-body">
+      <div class="field"> 
+          <%= f.password_field :password, class:"input", autofocus: true, required:true%>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label is normal">Confirmar contraseña</label>
+    </div>
+    <div class="field-body">
+      <div class="field"> 
+          <%= f.password_field :password_confirmation, class:"input", autofocus: true, required:true%>
+      </div>
+    </div>
+  </div>
 
   <div class="field">
-    <%= f.label :email, 'Correo electrónico'%><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.hidden_field :monedero, :value => 0%>
   </div>
 
-  <div class="field"> 
-  <%= f.label :phone_number, 'Número telefónico'%><br />
-  <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "phone_number", required:true %>
-  </div> 
-
-  <div class="field">
-    <%= f.label :password, 'Contraseña'%>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> caracteres mínimo)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+  <div class="field is-horizontal">
+    <div class="field-label">
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="actions">
+          <%=f.submit "Crear cuenta", class: "button is-success" %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation , 'Confirmar contraseña'%><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Crear cuenta", class: "button is-success" %>
-  </div>
 <% end %>
 
-  </div>
-  <div class="column">
-    
-  </div>
-</div>
 
 </div>
 </div>

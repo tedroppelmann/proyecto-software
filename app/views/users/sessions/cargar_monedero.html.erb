@@ -1,3 +1,4 @@
+
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
@@ -61,75 +62,70 @@
 
 <section class="hero is-link is-fullheight-with-navbar">
 <div class="hero-body">
-<div class="container">
+  <div class="container">
 
 <div class="columns is-mobile is-centered">
 <div class="column is-half">
 
 <h1 class="title">
-Cambiar apuesta
+Cargar monedero
 </h1>
 
-    <%= form_with(model:@assistant, url: party_update_bet_path, method: :patch, html: {class: 'box'}) do |form|%>
 
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Monedero</label>
-          </div>
-          <div class="field-body">
-            <div class="field is-expanded">
-              <div class="field has-addons">
-                <div class="control is-expanded">
-                  <div class="input" disabled>
-                  <%= current_user.monedero%>
-                  </div>
-                </div>
-              </div>
+
+<%= form_with(url: user_patch_monedero_path, method: "patch", html: {class: 'box'}) do |form| %>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Monedero</label>
+    </div>
+    <div class="field-body">
+      <div class="field is-expanded">
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <div class="input" disabled>
+            <%= current_user.monedero%>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <label class="label">Monto</label>
-          </div>
-          <div class="field-body">
-            <div class="field is-expanded">
-              <div class="field has-addons">
-                <div class="control">
-                  <div class="button is-static">
-                    $
-                  </div>
-                </div>
-                <div class="control is-expanded">
-                  <%=form.number_field :bet, class:"input", placeholder: "Dinero a cargar en la cuenta", required:true %>
-                </div>
+  <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Monto</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-expanded">
+          <div class="field has-addons">
+            <div class="control">
+              <div class="button is-static">
+                $
               </div>
+            </div>
+            <div class="control is-expanded">
+              <%=form.number_field :amount, class:"input", placeholder: "Dinero a cargar en la cuenta", required:true %>
             </div>
           </div>
         </div>
-
+      </div>
+    </div>
+  
+  <div class="field is-horizontal">
+      <div class="field-label">
+      </div>
+      <div class="field-body">
         <div class="field">
-        <%= form.hidden_field :user_id, :value => current_user.id%>
-        </div>
-
-        <div class="field">
-        <%= form.hidden_field :party_id, :value => @party.id%>
-        </div>
-
-        <div class="field is-horizontal">
-          <div class="field-label">
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="actions">
-                <%=form.submit "Cambiar apuesta", class: "button is-success" %>
-              </div>
-            </div>
+          <div class="actions">
+            <%=form.submit "Cargar monedero", class: "button is-success" %>
           </div>
         </div>
-    <% end %>
+      </div>
+    </div>
 
+
+<% end %>
 
 </div>
 </div>

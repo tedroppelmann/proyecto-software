@@ -1,0 +1,221 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <%= link_to "Inicio", static_pages_home_path, class:"navbar-item" %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Carretes
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver carretes", parties_index_path, class:"navbar-item"%>
+          <% if current_user and not current_user.admin %>
+          <%= link_to "Crear carrete", parties_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
+
+      <% if current_user %>
+      <% if current_user.admin %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Comunas
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver comunas", comunas_index_path, class:"navbar-item"%>
+
+          <%= link_to "Crear comuna", comunas_new_path, class:"navbar-item"%>
+        </div>
+      </div>
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          Servicios
+        </a>
+        <div class="navbar-dropdown">
+          <%= link_to "Ver servicios", services_index_path, class:"navbar-item"%>
+          <% if not current_user.admin %>
+          <%= link_to "Crear servicio", services_new_path, class:"navbar-item"%>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if not current_user %>
+          <%= link_to 'Registrarse', new_user_registration_path, class:"button is-link" %> 
+          <%= link_to 'Iniciar sesión', new_user_session_path, class:"button is-link" %> 
+          <% else %> 
+            <% if not current_user.admin %>
+            <%= link_to "Mi perfil", user_show_session_path, class:"button is-link" %> 
+            <% end %>
+          <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class:"button is-link" %> 
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero is-link is-fullheight-with-navbar">
+<div class="hero-body">
+  <div class="container">
+
+<div class="columns">
+  <div class="column">
+  </div>
+  <div class="column">
+    <h1 class="title">
+        Mi perfil
+        </h1>
+    <div class="box">
+        <strong>Nombre:</strong> <%= current_user.first_name %> <%= current_user.last_name %> </br>
+        <strong>Edad:</strong> <%= current_user.age %> </br>
+        <strong>Teléfono:</strong> <%= current_user.phone_number %> </br>
+        <strong>Correo electrónico:</strong> <%= current_user.email %> </br>
+        <strong>Monedero:</strong> <%= current_user.monedero %> </br>
+        <%if current_user.image.nil? %>
+          <strong>Foto de perfil:</strong> <br><%= image_tag("Default/default.jpg", style: "width:200px; height:auto") %> </br> 
+        <% else %>
+          <% puts(current_user.image)%>
+          <strong>Foto de perfil:</strong> <br><%= image_tag(current_user.image, style: "width:200px; height:auto") %> </br> 
+        <% end %>
+        </br>
+        <p style="text-align:center;">
+        <%= link_to "Editar cuenta", edit_user_registration_path, class:"button is-warning" %> 
+        <%= link_to "Cargar monedero", user_cargar_monedero_path, class:"button is-warning" %> 
+        </p>
+    </div>
+  </div>
+  <div class="column">
+  </div>
+</div>
+
+<h1 class="title">
+    Mis carretes
+</h1>
+<div class="columns is-multiline">
+  <% cantidad = 0 %>
+  <% current_user.partys.each do |party| %>
+    <% if party.user_id == current_user.id %>
+      <% cantidad = 1 %>
+    <div class="column is-one-quarter">
+      <div class="card">
+          <div class="card-content">
+            <div class="content">
+              <% if Date.today == party.fecha %>
+              <h5 class="title has-text-info"> ES HOY </h5>
+              <% elsif Date.today < party.fecha %>
+              <h5 class="title has-text-success"> PRÓXIMO </h5>
+              <% elsif Date.today > party.fecha %>
+              <h5 class="title has-text-danger"> YA FUE </h5>
+              <% end %>
+              <h3 class="title has-text-black-bis"><%= party.titulo %></h3>
+              <% for comuna in Comuna.all %>
+                <% if comuna.id == party.comuna_id %>
+                  Comuna: <%= comuna.nombre %> <br/>
+                <% end %>
+              <% end %>
+              Dirección: <%= party.direccion %> <br/>
+              Fecha: <%= party.fecha %> <br/>
+              Capacidad: <%= party.capacidad %> <br/>
+              Costos: $<%= party.costo %> <br/> <br/>
+              <% if Date.today < party.fecha %>
+                <p style="text-align:center;">
+                <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
+                <%= link_to "Editar", party_edit_path(party.id), class: "button is-warning"%>
+                <%= link_to "Eliminar", party_path(party.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+                </p>
+              <% else %>
+                <p style="text-align:center;">
+                <%= link_to "Detalles", party_path(party.id), class: "button is-link"%>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% if cantidad != 1 %>
+    <h1 class="subtitle">No tienes carretes aún.</h1>
+  <% end %>
+</div>
+
+<h1 class="title">
+Mis servicios
+</h1>
+
+<div class="columns is-multiline">
+  <% cantidad = 0 %>
+  <% current_user.services.each do |service| %>
+  <% cantidad = 1 %>
+    <div class="column is-one-quarter">
+    <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <% if not service.verified%>
+              <h5 class="title has-text-danger"> NO VERIFICADO</h5>
+            <% elsif service.verified%>
+              <h5 class="title has-text-success"> VERIFICADO</h5>
+            <% end %>
+            <h3 class="title has-text-black-bis"> <%= service.nombre %></h3>
+            Descripción: <%= service.descripcion %> <br/>
+            Capacidad máxima: <%= service.cap_max %> <br/>
+            Precio: $<%= service.precio %> <br/> <br/>
+            <p style="text-align:center;">
+            <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
+            <%= link_to "Editar", service_edit_path(service.id), class: "button is-warning"%>
+            <%= link_to "Eliminar", service_path(service.id), method: :delete, class: "button is-danger", data: { confirm: "¿Estás seguro?" }%>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% if cantidad != 1 %>
+    <h1 class="subtitle">No tienes servicios aún.</h1>
+  <% end %>
+</div>
+
+<h1 class="title">
+Mis comentarios
+</h1>
+
+<div class="columns is-multiline">
+  <% cantidad = 0 %>
+  <% current_user.comentarios.each do |comentario| %>
+  <% cantidad = 1 %>
+    <div class="column is-one-quarter">
+      <div class="card">
+        <div class="message is-info">
+          <div class="message-header">
+            <% Service.all.each do |servicio| %>
+              <% if servicio.id == comentario.service_id%>
+                Tú a <%= servicio.nombre %>
+              <% end %>
+            <% end %>
+            <%= link_to "Eliminar", comentario_path(comentario.id), method: :delete, class: "delete", data: { confirm: "¿Estás seguro?" }%>
+          </div>
+          <div class="message-body">
+            <% for i in (1..comentario.valoracion)%>
+              &#11088;
+            <% end %>
+            </br>
+            <%= comentario.contenido %> </br>
+            <%= comentario.created_at.strftime("%d-%m-%Y")%></br>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% if cantidad != 1 %>
+    <h1 class="subtitle">No has hecho ningún comentario.</h1>
+  <% end %>
+</div>
+
+</div>
+</div>
+</section>
