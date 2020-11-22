@@ -12,6 +12,7 @@ class Party < ApplicationRecord
   validates :costo, presence: true, numericality: { only_interger: true }
   validates :user_id, presence: true
   validates :comuna_id, presence: true
+  validates :code, presence: true
 
   belongs_to :user
   belongs_to :comuna
