@@ -8,6 +8,10 @@ RSpec.describe Service, type: :model do
     service = Service.new(nombre: 'los limpia pisos', descripcion: 'te voy a limpiar el piso al final del carrete', cap_max: 3, precio: 500, user_id: usuario[0].id, verified: true)
     expect(service).to be_valid
   end
+  it 'does create because do not have a verified' do
+    service = Service.new(nombre: 'los limpia pisos', descripcion: 'te voy a limpiar el piso al final del carrete', cap_max: 3, precio: 500, user_id: usuario[0].id)
+    expect(service).to be_valid
+  end
 
   context 'when you try to create a service with out a name' do
     it 'does not create because do not have a name' do
@@ -32,10 +36,6 @@ RSpec.describe Service, type: :model do
 
     it 'does not create because do not have a user_id' do
       service = Service.new(nombre: 'los limpia pisos', descripcion: 'te voy a limpiar el piso al final del carrete', cap_max: 3, precio: 500, verified: true)
-      expect(service).not_to be_valid
-    end
-    it 'does not create because do not have a verified' do
-      service = Service.new(nombre: 'los limpia pisos', descripcion: 'te voy a limpiar el piso al final del carrete', cap_max: 3, precio: 500, user_id: usuario[0].id)
       expect(service).not_to be_valid
     end
   end
