@@ -84,9 +84,7 @@
         Dirección: <%= @party.direccion %> <br/>
         Fecha: <%= @party.fecha %> <br/>
         Capacidad: <%= @party.capacidad %> <br/>
-        <% if @party.user_id == current_user.id or current_user.admin%>
         Costos: $<%= @party.costo %> <br/> 
-        <% end %>
         </div>
     </div>
 </div>
@@ -144,6 +142,31 @@
         </div>
     </div>
 </div>
+<br/> 
+
+<% else%>
+<br/> 
+<div class="card">
+    <div class="card-content">
+        <div class="content">
+        <h3 class="title has-text-black-bis"> Apuestas </h3>
+        <table class="table">
+        <thead>
+        <tr>
+          <th><abbr>Usuario</abbr></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @mis_asistentes.each do |asistente| %>
+            <tr>
+                <td><%= asistente[0] %></td>
+            </tr>
+        <% end %>
+    </tbody>
+      </table>
+        </div>
+    </div>
+  </div>
 <br/> 
 
 

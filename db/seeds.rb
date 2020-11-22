@@ -21,10 +21,12 @@ admin = User.create({first_name: 'admin', last_name: 'admin', email: 'admin@gmai
     user.password = "sotosoto"
     user.password_confirmation = "sotosoto"
     user.admin = false
+    user.monedero = 100000
     #user.avatar = image_fetcher
     user.save!
     #app\assets\images\Default\default_software.jpg
     user.image.attach(io: File.open("app/assets/images/Default/perfil_defecto.webp"), filename: "perfil_defecto.webp")
+
 
 end
 1.times do
@@ -35,6 +37,7 @@ end
     user.password = "dubost"
     user.password_confirmation = "dubost"
     user.admin = false
+    user.monedero = 100000
     #user.avatar = image_fetcher
     user.save!
     #app\assets\images\Default\default_software.jpg
@@ -49,6 +52,7 @@ end
     user.password = "droppelmann"
     user.password_confirmation = "droppelmann"
     user.admin = false
+    user.monedero = 100000
     #user.avatar = image_fetcher
     user.save!
     #app\assets\images\Default\default_software.jpg
@@ -59,7 +63,8 @@ end
 lo_barnechea = Comuna.create(nombre: "Lo Barnechea")
 la_reina = Comuna.create(nombre: "La Reina")
 las_condes = Comuna.create(nombre: "Las Condes")
-san_joaquin = Comuna.create(nombre: "San Joaquin")
+san_joaquin = Comuna.create(nombre: "San Joaquín")
+vitacura = Comuna.create(nombre: "Vitacura")
 
 ###########SERVICIOS#########
 
