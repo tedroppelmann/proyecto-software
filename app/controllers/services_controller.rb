@@ -35,7 +35,7 @@ class ServicesController < ApplicationController
 
   def update
     @service = Service.find(params[:id])
-    @services_param = params.require(:service).permit(:nombre, :descripcion, :cap_max, :precio, :verified, :valoracion,  { comuna_ids: [] })
+    @services_param = params.require(:service).permit(:nombre, :descripcion, :cap_max, :precio, :verified, :valoracion, { comuna_ids: [] })
 
     if @service.update(@services_param)
       redirect_to services_index_path, notice: 'Service editada con exito'

@@ -17,5 +17,4 @@ class Party < ApplicationRecord
   belongs_to :user
   belongs_to :comuna
   has_and_belongs_to_many :services, dependent: :destroy
-
 end

@@ -2,11 +2,10 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
-    #before_create :set_default_avatar
+    # before_create :set_default_avatar
     before_action :configure_sign_up_params, only: [:create]
     before_action :authenticate_user!
     before_action :configure_account_update_params, only: [:update]
-
 
     # GET /resource/sign_up
     # def new
@@ -43,8 +42,7 @@ module Users
     # end
 
     # protected
-    #imagen por defecto 
-
+    # imagen por defecto
 
     # def set_default_avatar
     #   if current_user.image.nil?

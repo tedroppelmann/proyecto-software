@@ -9,17 +9,13 @@ module Users
       @services = Service.all
     end
 
-    def show_monedero
-    end
+    def show_monedero; end
 
-    def cargar_monedero
-    end
+    def cargar_monedero; end
 
     def patch_monedero
       current_user.monedero = current_user.monedero + params[:amount].to_i
-      if current_user.save 
-        redirect_to user_show_session_path
-      end
+      redirect_to user_show_session_path if current_user.save
     end
 
     # GET /resource/sign_in
