@@ -97,7 +97,7 @@
         <% for service in Service.all %>
           <% if @party.service_ids.include? service.id %>
             <div>
-                <%= service.nombre %>
+                <%= link_to service.nombre, service_path(service.id)%> 
             </div>
           <% end %>
       <% end %>
