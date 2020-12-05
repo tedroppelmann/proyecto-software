@@ -135,8 +135,8 @@ Servicios
             <p style="text-align:center;">
             <%= link_to "Detalles", service_path(service.id), class: "button is-link"%>
             
-            <%= Party.all%>
             <% Party.all.each do |carrete| %>
+            <%= carrete%>
             <%= 'Hola'%>
             <%= carrete.service_ids %>
               <% if carrete.service_ids.include?(service.id)%>
