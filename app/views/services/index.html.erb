@@ -137,15 +137,17 @@ Servicios
             
             <% carretes = Party.all %>
             <% carretes.each do |carrete| %>
-              
+              <% if carrete.service_ids.include?(service.id)%>
+                <%= 'Hola'%>
                 <% asistentes = Assistant.where("party_id = ?", carrete.id)%>
+                <%= asistentes%>
                 <% asistentes.each do |persona|%> 
                   <% persona_asistente = User.find(persona.user_id)%>
                   <% if (carrete.user_id == current_user.id or persona_asistente.id == current_user.id) and Date.today >= carrete.fecha and carrete.hacer %>
                     <%= link_to "Comentar", comentarios_new_path(service_id: service.id), class: "button is-success"%>
                     <% break %>
                   <% end %>
-                
+                <% end %>
               <% end %>
               <% break %>
             <% end %>
