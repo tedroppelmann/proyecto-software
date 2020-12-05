@@ -141,7 +141,7 @@ Servicios
                 <% asistentes = Assistant.where("party_id = ?", carrete.id)%>
                 <% asistentes.each do |persona|%> 
                   <% persona_asistente = User.find(persona.user_id)%>
-                  <% if (carrete.user_id == current_user.id or persona_asistente.id == current_user.id) and Date.today >= carrete.fecha and carrete.hacer %>
+                  <% if (carrete.user_id == current_user.id or persona_asistente.id == current_user.id) and Date.today >= carrete.fecha%>
                     <%= link_to "Comentar", comentarios_new_path(service_id: service.id), class: "button is-success"%>
                     <% break %>
                   <% end %>
