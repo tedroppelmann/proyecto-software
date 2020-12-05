@@ -138,6 +138,7 @@ Servicios
             <% carretes = Party.all %>
             <% carretes.each do |carrete| %>
             <%= 'Hola'%>
+            <%= carrete.service_ids %>
               <% if carrete.service_ids.include?(service.id)%>
                 <%= 'Hola'%>
                 <% asistentes = Assistant.where("party_id = ?", carrete.id)%>
