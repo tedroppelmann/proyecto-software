@@ -144,9 +144,9 @@ Servicios
                   <% if (carrete.user_id == current_user.id or persona_asistente.id == current_user.id) and Date.today >= carrete.fecha and carrete.hacer %>
                     <%= link_to "Comentar", comentarios_new_path(service_id: service.id), class: "button is-success"%>
                     <% break %>
+                    <% break %>
                   <% end %>
                 <% end %>
-                <% break %>
               <% end %>
             <% end %>
             </p>
