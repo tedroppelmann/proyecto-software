@@ -134,7 +134,7 @@ Carretes a asistir
               <h5 class="title has-text-info"> ES HOY </h5>
             <% elsif Date.today < party.fecha %>
               <h5 class="title has-text-success"> PRÓXIMO </h5>
-            <% elsif Date.today < party.fecha %>
+            <% elsif Date.today > party.fecha %>
               <h5 class="title has-text-danger"> YA FUE </h5>
             <% end %>
             <h3 class="title has-text-black-bis"> <%= party.titulo %></h3>
